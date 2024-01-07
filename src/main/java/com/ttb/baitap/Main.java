@@ -117,6 +117,7 @@ public class Main {
                     // Goi cac phuong thuc quan ly nguoi hoc
                 }
                 case 2 -> {
+                    QLCauHoi qlch = new QLCauHoi();
                     int choice2;
                     do {
                         System.out.println("    1. Xem danh sach cau hoi");
@@ -125,7 +126,9 @@ public class Main {
                         choice2 = Integer.parseInt(CauHinh.SC.nextLine());
                         switch (choice2) {
                             case 1 -> {
-
+                                qlch.docFileMultipleChoice();
+                                qlch.hienThiDsCauHoi();
+                                break;
                             }
                             case 2 -> {
                                 int choice22;

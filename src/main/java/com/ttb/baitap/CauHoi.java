@@ -9,16 +9,22 @@ public abstract class CauHoi {
     private String noiDung;
     private List<PhuongAn> phuongAn;
     private Do_Kho doKho;
-
-    public abstract void noiDung();
-    public abstract void phuongAn();
+    private PhuongAn phuongAnDung;
     
-    public CauHoi(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho) {
+    
+    public abstract void hienThi();
+    public abstract void phuongAn();
+
+    public CauHoi(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung) {
         this.noiDung = noiDung;
         this.phuongAn = phuongAn;
         this.doKho = doKho;
+        this.phuongAnDung = phuongAnDung;
     }
-
+    
+       
+    
+    
     /**
      * @return the noiDung
      */
@@ -36,16 +42,7 @@ public abstract class CauHoi {
     /**
      * @return the phuonAn
      */
-    public List<PhuongAn> getPhuongAn() {
-        return phuongAn;
-    }
-
-    /**
-     * @param phuonAn the phuonAn to set
-     */
-    public void setPhuongAn(List<PhuongAn> phuongAn) {
-        this.phuongAn = phuongAn;
-    }
+    
 
     /**
      * @return the doKho
@@ -60,6 +57,42 @@ public abstract class CauHoi {
     public void setDoKho(Do_Kho doKho) {
         this.doKho = doKho;
     }
+
+    /**
+     * @return the phuongAn
+     */
+    public List<PhuongAn> getPhuongAn() {
+        return phuongAn;
+    }
+
+    /**
+     * @param phuongAn the phuongAn to set
+     */
+    public void setPhuongAn(List<PhuongAn> phuongAn) {
+        this.phuongAn = phuongAn;
+    }
+
+    /**
+     * @return the phuongAnDung
+     */
+    public PhuongAn getPhuongAnDung() {
+        return phuongAnDung;
+    }
+
+    /**
+     * @param phuongAnDung the phuongAnDung to set
+     */
+    public void setPhuongAnDung(PhuongAn phuongAnDung) {
+        this.phuongAnDung = phuongAnDung;
+    }
+
+    /**
+     * @return the phuongAn
+     */
+    
+
+
+   
 
     
 
