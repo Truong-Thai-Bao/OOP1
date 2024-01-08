@@ -19,11 +19,8 @@ public class NguoiDung {
     private LocalDate ngayGiaNhap;
 
     public void hienThi() {
-        System.out.println("Ho ten: " + getHoTen());
-        System.out.println("Que quan: " + getQueQuan());
-        System.out.println("Gioi tinh: " + getGioiTinh());
-        System.out.println("Ngay sinh: " + getNgaySinh().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
-        System.out.println("Ngay gia nhap: " + getNgayGiaNhap().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
+    System.out.printf("| %-25s | %-20s | %-8s  | %-15s | %-15s |\n", getHoTen(), getQueQuan(), getGioiTinh(), getNgaySinh().format(DateTimeFormatter.ofPattern(CauHinh.TIME)), getNgayGiaNhap().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
+    
     }
 
     public NguoiDung(String hoTen, String queQuan, String gioiTinh, LocalDate ngaySinh, LocalDate ngayGiaNhap) {

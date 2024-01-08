@@ -96,16 +96,14 @@ public class Main {
                                 System.out.print("Nhap ten nguoi hoc muon cap nhat: ");
                                 String ten = CauHinh.SC.nextLine();
                                 qlnd.capNhatThongTin(ten);
-                                qlnd.setDs(qlnd.getDs());
-                                qlnd.ghiNguoiDungVaoFile();
+//                                qlnd.ghiNguoiDungVaoFile();
                             }
                             case 5 -> {
                                 System.out.println("Xoa nguoi hoc: ");
                                 System.out.print("Nhap ten nguoi hoc muon xoa: ");
                                 String ten = CauHinh.SC.nextLine();
                                 qlnd.xoaNguoiDung(ten);
-                                qlnd.setDs(qlnd.getDs());
-                                qlnd.ghiNguoiDungVaoFile();
+//                                qlnd.ghiNguoiDungVaoFile();
                             }
                             case 0 ->
                                 System.out.println("Ket thuc quan ly nguoi hoc.");

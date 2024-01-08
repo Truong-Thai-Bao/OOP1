@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -44,9 +45,15 @@ public class QLNguoiDung {
             System.out.println("Khong tim thay nguoi dung nao");
             return;
         }
+
+        System.out.println("====================================================================================================");
+
+        System.out.printf("| %-25s | %-20s | %-8s | %-15s | %-15s |\n", "Ho ten", "Que quan", "Gioi tinh", "Ngay sinh", "Ngay gia nhap");
+        System.out.println("____________________________________________________________________________________________________");
         for (NguoiDung nguoiDung : ds) {
             nguoiDung.hienThi();
         }
+        System.out.println("====================================================================================================");
     }
 
     public List<NguoiDung> traCuu(String s) {
@@ -78,21 +85,6 @@ public class QLNguoiDung {
     }
 
     public void themNguoiHoc() {
-//        System.out.print("Nhap ho ten: ");
-//        String hoTen = CauHinh.SC.nextLine();
-//        System.out.print("Nhap que quan: ");
-//        String queQuan = CauHinh.SC.nextLine();
-//        System.out.print("Nhap gioi tinh: ");
-//        String gioiTinh = CauHinh.SC.nextLine();
-//        System.out.print("Nhap ngay sinh (dd/MM/yyyy): ");
-//        String ngaySinh = CauHinh.SC.nextLine();
-//        System.out.print("Nhap ngay gia nhap (dd/MM/yyyy): ");
-//        String ngayGiaNhap = CauHinh.SC.nextLine();
-//        
-//        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinh, ngayGiaNhap);
-//        ds.add(nguoiDung);
-//        ghiNguoiDungVaoFile(nguoiDung);
-//        System.out.println("Da them nguoi hoc: " + hoTen);
         System.out.print("Nhap ho ten: ");
         String hoTen = CauHinh.SC.nextLine();
         System.out.print("Nhap que quan: ");
@@ -136,20 +128,18 @@ public class QLNguoiDung {
     }
 
     public void xoaNguoiDung(String ten) {
-        NguoiDung nguoiDungXoa = null;
-        for (NguoiDung nguoiDung : ds) {
-            if (nguoiDung.getHoTen().equals(ten)) {
-                nguoiDungXoa = nguoiDung;
-                break;
-            }
-        }
-
-        if (nguoiDungXoa != null) {
-            ds.remove(nguoiDungXoa);
+        Iterator<NguoiDung> iterator = ds.iterator();
+    while (iterator.hasNext()) {
+        NguoiDung nguoiDung = iterator.next();
+        if (nguoiDung.getHoTen().equals(ten)) {
+            iterator.remove();
             System.out.println("Da xoa nguoi dung co ten: " + ten);
-        } else {
-            System.out.println("Khong tim thay nguoi dung co ten: " + ten);
+            ghiNguoiDungVaoFile();  // Ghi người dùng vào file ngay sau khi xóa.
+            return;
         }
+    }
+
+    System.out.println("Khong tim thay nguoi dung co ten: " + ten);
     }
 
     public void ghiNguoiDungVaoFile() {
@@ -177,7 +167,12 @@ public class QLNguoiDung {
         }
 
         if (nguoiDungCanCapNhat != null) {
+            System.out.println("====================================================================================================");
+
+            System.out.printf("| %-25s | %-20s | %-8s | %-15s | %-15s |\n", "Ho ten", "Que quan", "Gioi tinh", "Ngay sinh", "Ngay gia nhap");
+            System.out.println("____________________________________________________________________________________________________");
             nguoiDungCanCapNhat.hienThi();
+            System.out.println("====================================================================================================");
             System.out.println("Ban muon cap nhat thuoc tinh nao hay nhap so tuong ung:");
             System.out.println("1. Ho ten");
             System.out.println("2. Que quan");
@@ -192,23 +187,24 @@ public class QLNguoiDung {
                     System.out.print("Nhap ho ten moi: ");
                     String hoTenMoi = CauHinh.SC.nextLine();
                     nguoiDungCanCapNhat.setHoTen(hoTenMoi);
+                    ghiNguoiDungVaoFile();
                     System.out.println("Da cap nhat ho ten.");
                 }
                 case 2 -> {
                     System.out.print("Nhap que quan moi: ");
                     String queQuanMoi = CauHinh.SC.nextLine();
                     nguoiDungCanCapNhat.setQueQuan(queQuanMoi);
+                    ghiNguoiDungVaoFile();
                     System.out.println("Da cap nhat que quan.");
                 }
                 case 3 -> {
                     System.out.print("Nhap gioi tinh moi: ");
                     String gioiTinhMoi = CauHinh.SC.nextLine();
                     nguoiDungCanCapNhat.setGioiTinh(gioiTinhMoi);
+                    ghiNguoiDungVaoFile();
                     System.out.println("Da cap nhat gioi tinh.");
                 }
                 case 4 -> {
-//                    System.out.print("Nhap ngay sinh moi (yyyy-MM-dd): ");
-//                    LocalDate ngaySinhMoi = LocalDate.parse(CauHinh.SC.nextLine());
                     String ngaySinhStr;
                     Date ngaySinh = null;
                     do {
@@ -219,10 +215,10 @@ public class QLNguoiDung {
                     ngaySinhStr = chuyenDateSangChuoi(ngaySinh);
                     LocalDate ngaySinhMoi = LocalDate.parse(ngaySinhStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     nguoiDungCanCapNhat.setNgaySinh(ngaySinhMoi);
+                    ghiNguoiDungVaoFile();
                     System.out.println("Da cap nhat ngay sinh.");
                 }
                 case 5 -> {
-//                    System.out.print("Nhap ngay gia nhap moi (yyyy-MM-dd): ");
                     String ngayGiaNhapStr;
                     Date ngayGiaNhap = null;
                     do {
@@ -233,6 +229,7 @@ public class QLNguoiDung {
                     ngayGiaNhapStr = chuyenDateSangChuoi(ngayGiaNhap);
                     LocalDate ngayGiaNhapMoi = LocalDate.parse(ngayGiaNhapStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     nguoiDungCanCapNhat.setNgayGiaNhap(ngayGiaNhapMoi);
+                    ghiNguoiDungVaoFile();
                     System.out.println("Da cap nhat ngay gia nhap.");
                 }
                 default ->
