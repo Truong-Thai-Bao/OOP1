@@ -6,14 +6,16 @@ import java.util.List;
 public class Incomplete extends CauHoi {
 
     private static int dem;
-    private boolean flag;
+    private int soThuTu;
     
+    private static int temp=1;
     public Incomplete() {
         super(null, null, null, null);
     }
 
-    public Incomplete(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung) {
+    public Incomplete(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung,int soThuTu) {
         super(noiDung, phuongAn, doKho, phuongAnDung);
+        this.soThuTu= soThuTu;
     }
 
     
@@ -25,9 +27,11 @@ public class Incomplete extends CauHoi {
 
     @Override
     public void hienThi() {
-        System.out.println(getNoiDung());
-        for(PhuongAn pa: getPhuongAn())
-            System.out.printf(pa.getNoiDungPA()+"\n");
+        if(this.soThuTu==temp){
+            System.out.println(super.getNoiDung());
+            temp++;
+        }
+        System.out.println(super.getPhuongAn());
     }
 
     

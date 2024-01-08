@@ -55,9 +55,9 @@ public class QLCauHoi {
                     currentLine = sc.nextLine();
                     listPa.add(new PhuongAn(currentLine));
 
-                    if (currentLine.isEmpty()) {
+                    if (currentLine.isEmpty()) 
                         break;
-                    }
+                    
                 }
                 String pad = sc.nextLine();
                 Do_Kho doKho = Do_Kho.fromFileValue(Integer.parseInt(sc.nextLine()));
@@ -74,34 +74,40 @@ public class QLCauHoi {
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
                 String currentLine = sc.nextLine();
-
+                int stt = Integer.parseInt(currentLine);
                 Do_Kho doKho = Do_Kho.fromFileValue(Integer.parseInt(currentLine));
+                sc.nextLine();
                 String nd = "";
                 while (sc.hasNext()) {
-                    nd += sc.nextLine();
-                    if (sc.nextLine().startsWith("#")) {
+                    if (sc.nextLine().contains("#")) {
+                        sc.nextLine();
                         break;
                     }
+                   // currentLine = sc.nextLine();
+                    nd += sc.nextLine();
+                    
                 }
-
+                System.out.println(nd);
                 List<PhuongAn> listPa = new ArrayList<>();
 
                 while (sc.hasNext()) {
-                    if (currentLine.startsWith("@")) 
+                    if (sc.nextLine().startsWith("@")) {
                         break;
-                    
-                    while (sc.hasNext()) {
-                        currentLine = sc.nextLine();
-                        listPa.add(new PhuongAn(currentLine));
+                    }
 
-                        if (currentLine.isEmpty()) 
+                    while (true) {
+                         if (sc.nextLine().isEmpty()) {
                             break;
+                        }
+                        listPa.add(new PhuongAn(sc.nextLine()));
+                        System.out.println(listPa);
+                       
                     }
                     sc.nextLine();
-                    String pad = currentLine;
-                    ds.add(new Incomplete(nd, listPa, doKho, new PhuongAn(pad)));
-                }
+                    String pad = sc.nextLine();
 
+                    ds.add(new Incomplete(nd, listPa, doKho, new PhuongAn(pad), stt));
+                }
             }
         }
     }
