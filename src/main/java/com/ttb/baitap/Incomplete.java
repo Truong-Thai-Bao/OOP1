@@ -1,39 +1,36 @@
 package com.ttb.baitap;
 
-
 import java.util.List;
 
 public class Incomplete extends CauHoi {
 
-    private static int dem;
-    private int soThuTu;
-    
-    private static int temp=1;
+    protected static int dem=1;
+    protected int soThuTu;
+
+    protected static int temp = 1;
+
     public Incomplete() {
         super(null, null, null, null);
     }
 
-    public Incomplete(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung,int soThuTu) {
+    public Incomplete(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung, int soThuTu) {
         super(noiDung, phuongAn, doKho, phuongAnDung);
-        this.soThuTu= soThuTu;
+        this.soThuTu = soThuTu;
     }
 
-    
-
-    @Override
-    public void phuongAn() {
-        
-    }
 
     @Override
     public void hienThi() {
-        if(this.soThuTu==temp){
+        if (soThuTu == temp) {
             System.out.println(super.getNoiDung());
             temp++;
         }
-        System.out.println(super.getPhuongAn());
+        for (PhuongAn p : getPhuongAn()) {
+            System.out.printf("%d. %s\t", dem, p);
+        }
+        dem++;
+        System.out.println();
+
     }
 
-    
-	
 }

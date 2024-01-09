@@ -89,7 +89,7 @@ public class Main {
                             case 3 -> {
                                 System.out.println("Them nguoi hoc: ");
                                 qlnd.themNguoiHoc();
-                                
+
                             }
                             case 4 -> {
                                 System.out.println("Cap nhat thong tin nguoi hoc: ");
@@ -118,49 +118,260 @@ public class Main {
                     QLCauHoi qlch = new QLCauHoi();
                     int choice2;
                     do {
-                        System.out.println("    1. Xem danh sach cau hoi");
-                        System.out.println("    2. Tim cau hoi");
+                        System.out.println("    Chon dang cau hoi");
+                        System.out.println("    1. Multiple Choice");
+                        System.out.println("    2. Incomplete");
+                        System.out.println("    3. Conversation");
                         System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                         choice2 = Integer.parseInt(CauHinh.SC.nextLine());
                         switch (choice2) {
                             case 1 -> {
+                                int choice21;
                                 qlch.docFileMultipleChoice();
-                                qlch.hienThiDsCauHoi();
-                                break;
+                                do {
+                                    System.out.println("    1. Xem danh sach cau hoi");
+                                    System.out.println("    2. Tim cau hoi");
+                                    System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                    choice21 = Integer.parseInt(CauHinh.SC.nextLine());
+                                    switch (choice21) {
+                                        case 1 -> {
+                                            qlch.hienThiDsCauHoi();
+                                            break;
+                                        }
+                                        case 2 -> {
+                                            int choice212;
+                                            do {
+                                                System.out.println("Tim cau hoi theo");
+                                                System.out.println("        1. Noi dung cau hoi");
+                                                System.out.println("        2. Danh muc");
+                                                System.out.println("        3. Muc do cau hoi");
+                                                System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                choice212 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                switch (choice212) {
+                                                    case 1 -> {
+                                                        System.out.println("Nhap noi dung can tim");
+                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 2 -> {
+                                                        System.out.println("Nhap loai danh muc can tim");
+                                                        qlch.timCauHoi(new DanhMuc(CauHinh.SC.nextLine()));
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 3 -> {
+                                                        int choice223;
+                                                        do {
+                                                            System.out.println("Chon do kho muon tim");
+                                                            System.out.println("    1. De");
+                                                            System.out.println("    2. Trung binh");
+                                                            System.out.println("    3. Kho");
+                                                            System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                            choice223 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                            switch (choice223) {
+                                                                case 1 -> {
+                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    break;
+                                                                }
+                                                                case 2 -> {
+                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    break;
+                                                                }
+                                                                case 3 -> {
+                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    break;
+                                                                }
+                                                                case 0 ->
+                                                                    System.out.println("Ket thuc luyen tap.");
+                                                                default ->
+                                                                    System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                                            }
+                                                        } while (choice223 != 0);
+                                                        // Goi cac phuong thuc luyen tap
+
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 0 ->
+                                                        System.out.println("Ket thuc tim cau hoi.");
+                                                    default ->
+                                                        System.out.println("Lua chon khong hop le. Vui long chon lai.");
+                                                }
+                                            } while (choice212 != 0);
+                                        }
+                                        case 0 ->
+                                            System.out.println("Ket thuc quan ly cau hoi.");
+                                        default ->
+                                            System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                    }
+                                } while (choice21 != 0);
+                                // Goi cac phuong thuc quan ly cau hoi
                             }
                             case 2 -> {
                                 int choice22;
+                                qlch.docFileIncomplete();
                                 do {
-                                    System.out.println("Tim cau hoi theo");
-                                    System.out.println("        1. Noi dung cau hoi");
-                                    System.out.println("        2. Danh muc");
-                                    System.out.println("        3. Muc do cau hoi");
+                                    System.out.println("    1. Xem danh sach cau hoi");
+                                    System.out.println("    2. Tim cau hoi");
                                     System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                                     choice22 = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (choice22) {
                                         case 1 -> {
+                                            qlch.hienThiDsCauHoi();
+                                            break;
                                         }
                                         case 2 -> {
-                                        }
-                                        case 3 -> {
-                                        }
-                                        case 4 -> {
+                                            int choice222;
+                                            do {
+                                                System.out.println("Tim cau hoi theo");
+                                                System.out.println("        1. Noi dung cau hoi");
+                                                System.out.println("        2. Muc do cau hoi");
+                                                System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                choice222 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                switch (choice222) {
+                                                    case 1 -> {
+                                                        System.out.println("Nhap noi dung can tim");
+                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 2 -> {
+                                                        int choice2222;
+                                                        do {
+                                                            System.out.println("Chon do kho muon tim");
+                                                            System.out.println("    1. De");
+                                                            System.out.println("    2. Trung binh");
+                                                            System.out.println("    3. Kho");
+                                                            System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                            choice2222 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                            switch (choice2222) {
+                                                                case 1 -> {
+                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    break;
+                                                                }
+                                                                case 2 -> {
+                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    break;
+                                                                }
+                                                                case 3 -> {
+                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    break;
+                                                                }
+                                                                case 0 ->
+                                                                    System.out.println("Ket thuc luyen tap.");
+                                                                default ->
+                                                                    System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                                            }
+                                                        } while (choice2222 != 0);
+                                                        // Goi cac phuong thuc luyen tap
+
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 0 ->
+                                                        System.out.println("Ket thuc tim cau hoi.");
+                                                    default ->
+                                                        System.out.println("Lua chon khong hop le. Vui long chon lai.");
+                                                }
+                                            } while (choice22 != 0);
                                         }
                                         case 0 ->
-                                            System.out.println("Ket thuc tim cau hoi.");
+                                            System.out.println("Ket thuc quan ly cau hoi.");
                                         default ->
                                             System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
                                     }
                                 } while (choice22 != 0);
+                                // Goi cac phuong thuc quan ly cau hoi
+                            }
+                            case 3 -> {
+                                int choice23;
+                                qlch.docFileConversation();
+                                do {
+                                    System.out.println("    1. Xem danh sach cau hoi");
+                                    System.out.println("    2. Tim cau hoi");
+                                    System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                    choice23 = Integer.parseInt(CauHinh.SC.nextLine());
+                                    switch (choice23) {
+                                        case 1 -> {
+                                            qlch.hienThiDsCauHoi();
+                                            break;
+                                        }
+                                        case 2 -> {
+                                            int choice232;
+                                            do {
+                                                System.out.println("Tim cau hoi theo");
+                                                System.out.println("        1. Noi dung cau hoi");
+                                                System.out.println("        2. Muc do cau hoi");
+                                                System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                choice232 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                switch (choice232) {
+                                                    case 1 -> {
+                                                        System.out.println("Nhap noi dung can tim");
+                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 2 -> {
+                                                        int choice2322;
+                                                        do {
+                                                            System.out.println("Chon do kho muon tim");
+                                                            System.out.println("    1. De");
+                                                            System.out.println("    2. Trung binh");
+                                                            System.out.println("    3. Kho");
+                                                            System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                                            choice2322 = Integer.parseInt(CauHinh.SC.nextLine());
+                                                            switch (choice2322) {
+                                                                case 1 -> {
+                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    break;
+                                                                }
+                                                                case 2 -> {
+                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    break;
+                                                                }
+                                                                case 3 -> {
+                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    break;
+                                                                }
+                                                                case 0 ->
+                                                                    System.out.println("Ket thuc luyen tap.");
+                                                                default ->
+                                                                    System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                                            }
+                                                        } while (choice2322 != 0);
+                                                        // Goi cac phuong thuc luyen tap
+
+                                                        qlch.hienThiDsCauHoi();
+                                                        break;
+                                                    }
+                                                    case 0 ->
+                                                        System.out.println("Ket thuc tim cau hoi.");
+                                                    default ->
+                                                        System.out.println("Lua chon khong hop le. Vui long chon lai.");
+                                                }
+                                            } while (choice232 != 0);
+                                        }
+                                        case 0 ->
+                                            System.out.println("Ket thuc quan ly cau hoi.");
+                                        default ->
+                                            System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                    }
+                                } while (choice23 != 0);
+                                // Goi cac phuong thuc quan ly cau hoi
                             }
                             case 0 ->
-                                System.out.println("Ket thuc quan ly cau hoi.");
+                                System.out.println("Ket thuc luyen tap.");
                             default ->
                                 System.out.println("Lua chon khong hop le. Vui long chon lai.");
-
                         }
                     } while (choice2 != 0);
-                    // Goi cac phuong thuc quan ly cau hoi
                 }
                 case 3 -> {
                     int choice3;
@@ -173,7 +384,7 @@ public class Main {
                         choice3 = Integer.parseInt(CauHinh.SC.nextLine());
                         switch (choice3) {
                             case 1 -> {
-                                
+
                             }
                             case 2 -> {
 

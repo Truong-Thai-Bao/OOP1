@@ -9,7 +9,7 @@ package com.ttb.baitap;
  * @author USER
  */
 public enum Do_Kho {
-        DE(1),
+    DE(1),
     TRUNG_BINH(2),
     KHO(3);
     

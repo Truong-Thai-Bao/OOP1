@@ -29,15 +29,15 @@ public class MultipleChoice extends CauHoi {
     
     @Override
     public void hienThi(){
-        System.out.printf("%d. %s\n%s\n\n",++dem,super.getNoiDung(),super.getPhuongAn());
+        System.out.printf("%d. %s\n",++dem,super.getNoiDung());
+        for(PhuongAn p:super.getPhuongAn())
+            System.out.printf("%s\t", p);
+        System.out.println();
+        System.out.println();
     }
     
 
 
-    @Override
-    public void phuongAn() {
-        System.out.println(super.getPhuongAn());
-    }
 
     /**
      * @return the danhMuc

@@ -13,7 +13,6 @@ public abstract class CauHoi {
     
     
     public abstract void hienThi();
-    public abstract void phuongAn();
 
     public CauHoi(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung) {
         this.noiDung = noiDung;

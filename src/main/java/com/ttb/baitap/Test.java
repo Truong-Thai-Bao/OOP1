@@ -13,8 +13,10 @@ import java.io.FileNotFoundException;
 public class Test {
     public static void main(String[] args) throws FileNotFoundException {
         QLCauHoi ql = new QLCauHoi();
-        ql.docFileIncomplete();
-        //ql.hienThiDsCauHoi();
+        //ql.docFileConversation();
+        //ql.docFileIncomplete();
+        ql.docFileMultipleChoice();
+        ql.hienThiDsCauHoi();
         
     }
 
