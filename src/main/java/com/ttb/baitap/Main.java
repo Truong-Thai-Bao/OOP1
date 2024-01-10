@@ -1,10 +1,15 @@
 package com.ttb.baitap;
 
 import com.ttb.baitap.CauHinh;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 
 /*
@@ -17,7 +22,7 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         int choice;
         QLNguoiDung qlnd = new QLNguoiDung();
         QLNguoiDung traCuu = new QLNguoiDung();
@@ -225,8 +230,8 @@ public class Main {
                                 int choice22;
                                 qlch.docFileIncomplete();
                                 do {
-                                    System.out.println("    1. Xem danh sach cau hoi");
-                                    System.out.println("    2. Tim cau hoi");
+                                    System.out.println("        1. Xem danh sach cau hoi");
+                                    System.out.println("        2. Tim cau hoi");
                                     System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                                     choice22 = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (choice22) {
@@ -237,16 +242,17 @@ public class Main {
                                         case 2 -> {
                                             int choice222;
                                             do {
-                                                System.out.println("Tim cau hoi theo");
-                                                System.out.println("        1. Noi dung cau hoi");
-                                                System.out.println("        2. Muc do cau hoi");
+                                                System.out.println("        Tim cau hoi theo");
+                                                System.out.println("            1. Noi dung cau hoi");
+                                                System.out.println("            2. Muc do cau hoi");
                                                 System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                                                 choice222 = Integer.parseInt(CauHinh.SC.nextLine());
                                                 switch (choice222) {
                                                     case 1 -> {
-                                                        qlch.docFileIncomplete();
+                                                        QLCauHoi ql = new QLCauHoi();
+                                                        ql.docFileIncomplete();
                                                         System.out.println("Nhap noi dung can tim");
-                                                        kq = qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        kq = ql.timCauHoi(CauHinh.SC.nextLine());
                                                         hienThiDs(kq);
                                                         break;
                                                     }
@@ -261,20 +267,23 @@ public class Main {
                                                             choice2222 = Integer.parseInt(CauHinh.SC.nextLine());
                                                             switch (choice2222) {
                                                                 case 1 -> {
-                                                                    qlch.docFileIncomplete();
-                                                                    kq = qlch.timCauHoi(Do_Kho.DE);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileIncomplete();
+                                                                    kq = ql.timCauHoi(Do_Kho.DE);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 2 -> {
-                                                                    qlch.docFileIncomplete();
-                                                                    kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileIncomplete();
+                                                                    kq = ql.timCauHoi(Do_Kho.TRUNG_BINH);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 3 -> {
-                                                                    qlch.docFileIncomplete();
-                                                                    kq = qlch.timCauHoi(Do_Kho.KHO);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileIncomplete();
+                                                                    kq = ql.timCauHoi(Do_Kho.KHO);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
@@ -293,7 +302,7 @@ public class Main {
                                                     default ->
                                                         System.out.println("Lua chon khong hop le. Vui long chon lai.");
                                                 }
-                                            } while (choice22 != 0);
+                                            } while (choice222 != 0);
                                         }
                                         case 0 ->
                                             System.out.println("Ket thuc quan ly cau hoi.");
@@ -308,8 +317,8 @@ public class Main {
                                 int choice23;
                                 qlch.docFileConversation();
                                 do {
-                                    System.out.println("    1. Xem danh sach cau hoi");
-                                    System.out.println("    2. Tim cau hoi");
+                                    System.out.println("        1. Xem danh sach cau hoi");
+                                    System.out.println("        2. Tim cau hoi");
                                     System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                                     choice23 = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (choice23) {
@@ -321,8 +330,8 @@ public class Main {
                                             int choice232;
                                             do {
                                                 System.out.println("Tim cau hoi theo");
-                                                System.out.println("        1. Noi dung cau hoi");
-                                                System.out.println("        2. Muc do cau hoi");
+                                                System.out.println("            1. Noi dung cau hoi");
+                                                System.out.println("            2. Muc do cau hoi");
                                                 System.out.print("Nhap lua chon cua ban (0 de thoat): ");
                                                 choice232 = Integer.parseInt(CauHinh.SC.nextLine());
                                                 switch (choice232) {
@@ -344,20 +353,23 @@ public class Main {
                                                             choice2322 = Integer.parseInt(CauHinh.SC.nextLine());
                                                             switch (choice2322) {
                                                                 case 1 -> {
-                                                                    qlch.docFileConversation();
-                                                                    kq = qlch.timCauHoi(Do_Kho.DE);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileConversation();
+                                                                    kq = ql.timCauHoi(Do_Kho.DE);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 2 -> {
-                                                                    qlch.docFileConversation();
-                                                                    kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileConversation();
+                                                                    kq = ql.timCauHoi(Do_Kho.TRUNG_BINH);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 3 -> {
-                                                                    qlch.docFileConversation();
-                                                                    kq = qlch.timCauHoi(Do_Kho.KHO);
+                                                                    QLCauHoi ql = new QLCauHoi();
+                                                                    ql.docFileConversation();
+                                                                    kq = ql.timCauHoi(Do_Kho.KHO);
                                                                     hienThiDs(kq);
                                                                     break;
                                                                 }
@@ -396,6 +408,7 @@ public class Main {
                 }
                 case 3 -> {
                     int choice3;
+                    List<CauHoi> kq = new ArrayList<>();
                     do {
                         System.out.println("    Nguoi dung chon dang cau hoi");
                         System.out.println("    1. Multiple Choice");
@@ -405,7 +418,17 @@ public class Main {
                         choice3 = Integer.parseInt(CauHinh.SC.nextLine());
                         switch (choice3) {
                             case 1 -> {
-
+                                System.out.println("Nhap so luong cau hoi");
+                                int n = Integer.parseInt(CauHinh.SC.nextLine());
+                                QLCauHoi ds = new QLCauHoi();
+                                kq = ds.docFileMultipleChoice();
+                                int rand = randSo(10);
+                                for (int i = 0; i < n; i++) {
+                                    while(kiemTra(1,rand))
+                                        rand = randSo(10);
+                                    
+                                }
+                                break;
                             }
                             case 2 -> {
 
@@ -441,5 +464,60 @@ public class Main {
             return;
         }
         kq.forEach(c -> c.hienThi(0));
+    }
+
+    public static boolean kiemTra(int lineNumber, int targetNumber) throws IOException {
+        try (Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
+            StringBuilder content = new StringBuilder();
+            int currentLineNumber = 1;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (currentLineNumber == lineNumber) {
+                    boolean containsTargetNumber = false;
+                    String[] numbers = line.split("\\s+");
+
+                    for (String numberString : numbers) {
+                        try {
+                            int currentNumber = Integer.parseInt(numberString);
+                            content.append(currentNumber).append(" ");
+                            if (currentNumber == targetNumber) {
+                                containsTargetNumber = true;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid number format: " + numberString);
+                        }
+                    }
+
+                    if (!containsTargetNumber) {
+                        // Nếu không tìm thấy số, thêm targetNumber vào dòng đó
+                        content.append(targetNumber).append(" ");
+                    }
+                } else {
+                    content.append(line).append(System.lineSeparator());
+                }
+
+                currentLineNumber++;
+            }
+
+            // Ghi lại nội dung vào file
+            Chen(content.toString());
+
+            return content.toString().contains(String.valueOf(targetNumber));
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + "src/main/java/com/ttb/baitap/file/CauDaLam");
+            return false;
+        }
+    }
+
+    private static void Chen(String content) throws IOException {
+        try (FileWriter writer = new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
+            writer.write(content);
+        }
+    }
+    
+    public static int randSo(int n) {
+        Random random = new Random();
+        return random.nextInt(n) + 1;
     }
 }

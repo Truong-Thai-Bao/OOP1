@@ -14,14 +14,16 @@ public class Conversation extends Incomplete {
     
     @Override
     public void hienThi(int n) {
-        if(temp!=soThuTu)
+        if(temp!=getSoThuTu()){
+            dem=1;
             flag = true;
+        }
         if (flag==true) {
             System.out.println(super.getNoiDung());
             flag = false;
-            temp=soThuTu;
+            temp=getSoThuTu();
         }
-        System.out.printf("%d. %s\n", dem++, cauHoiPhu);
+        System.out.printf("%d.%s\n", dem++, cauHoiPhu);
         for (PhuongAn p : getPhuongAn()) {
             System.out.printf("   %s\n", p);
         }

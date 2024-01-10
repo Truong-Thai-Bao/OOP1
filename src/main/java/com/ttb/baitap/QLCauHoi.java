@@ -17,7 +17,6 @@ public class QLCauHoi {
 
     public List<CauHoi> timCauHoi(String noiDung) {
         return ds.stream().filter(c -> c.getNoiDung().toLowerCase().contains(noiDung.toLowerCase())).collect(Collectors.toList());
-
     }
 
     public List<CauHoi> timCauHoi(Do_Kho doKho) {
@@ -35,11 +34,12 @@ public class QLCauHoi {
         return kq;
     }
 
-    public void docFileMultipleChoice() throws FileNotFoundException {
+    public List<CauHoi> docFileMultipleChoice() throws FileNotFoundException {
         File f = new File("src/main/java/com/ttb/baitap/file/MultipleChoice");
 
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
+                int stt = Integer.parseInt(sc.nextLine());
                 String dm = sc.nextLine();
                 //System.out.println(dm);
                 String nd = sc.nextLine();
@@ -61,13 +61,14 @@ public class QLCauHoi {
                 //System.out.println(doKho);
                 String gc = sc.nextLine();
                 //System.out.println(gc);
-                ds.add(new MultipleChoice(nd, listPa, doKho, new PhuongAn(pad), new DanhMuc(dm), gc));
+                ds.add(new MultipleChoice(nd, listPa, doKho, new PhuongAn(pad),stt, new DanhMuc(dm), gc));
                 //System.out.println(new PhuongAn(dm));
             }
         }
+        return ds;
     }
 
-    public void docFileIncomplete() throws FileNotFoundException {
+    public List<CauHoi> docFileIncomplete() throws FileNotFoundException {
         File f = new File("src/main/java/com/ttb/baitap/file/Incomplete");
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNextLine()) {
@@ -114,28 +115,33 @@ public class QLCauHoi {
 
             }
         }
+        return ds;
     }
 
-    public void docFileConversation() throws FileNotFoundException {
+    public List<CauHoi> docFileConversation() throws FileNotFoundException {
         File f = new File("src/main/java/com/ttb/baitap/file/Conversation");
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
                 int stt = Integer.parseInt(sc.nextLine());
                 Do_Kho doKho = Do_Kho.fromFileValue(Integer.parseInt(sc.nextLine()));
-                //System.out.printf("%s\n%s",stt,doKho);
+                //System.out.printf("%s\n%s\n",stt,doKho);
                 StringBuilder content = new StringBuilder();
+                String li = sc.nextLine();
                 while (sc.hasNextLine()) {
-                    if (sc.nextLine().trim().equals("#")) {
+                    if (li.trim().equals("#")) {
                         break;
                     }
-                    content.append(sc.nextLine()).append("\n");
+                    content.append(li).append("\n");
+                    li = sc.nextLine();
                 }
 
                 // In ra nội dung đã đọc
                 // System.out.println(content);
-                String cauHoiPhu = sc.nextLine();
-                //System.out.println(sc.nextLine());
+                
                 while (sc.hasNextLine()) {
+                    li = sc.nextLine();
+                    String cauHoiPhu = li;
+                    //System.out.println(cauHoiPhu);
                     List<PhuongAn> listPa = new ArrayList<>();
                     while (sc.hasNextLine()) {
                         String line = sc.nextLine();
@@ -146,17 +152,18 @@ public class QLCauHoi {
                         listPa.add(new PhuongAn(line));
 
                     }
+                    li = sc.nextLine();
                     //System.out.println(listPa);
-                    String pad = sc.nextLine();
+                    String pad = li;
                     ds.add(new Conversation(content.toString(), listPa, doKho, new PhuongAn(pad), stt, cauHoiPhu));
                     if (sc.nextLine().trim().equals("@")) {
                         break;
                     }
-
                 }
 
             }
         }
+        return ds;
     }
 
     public void hienThiDsCauHoi() {

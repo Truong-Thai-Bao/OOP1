@@ -46,14 +46,15 @@ public class QLNguoiDung {
             return;
         }
 
-        System.out.println("====================================================================================================");
+        System.out.println("+----------------------------+----------------------+------------+------------------+------------------+");
 
-        System.out.printf("| %-25s | %-20s | %-8s | %-15s | %-15s |\n", "Ho ten", "Que quan", "Gioi tinh", "Ngay sinh", "Ngay gia nhap");
-        System.out.println("____________________________________________________________________________________________________");
+        System.out.printf("| %-25s  | %-20s | %-8s  | %-15s  | %-15s  |\n", "Ho ten", "Que quan", "Gioi tinh", "Ngay sinh", "Ngay gia nhap");
+        System.out.println("+----------------------------+----------------------+------------+------------------+------------------+");
+
         for (NguoiDung nguoiDung : ds) {
             nguoiDung.hienThi();
         }
-        System.out.println("====================================================================================================");
+        System.out.println("+----------------------------+----------------------+------------+------------------+------------------+");
     }
 
     public List<NguoiDung> traCuu(String s) {
@@ -129,17 +130,17 @@ public class QLNguoiDung {
 
     public void xoaNguoiDung(String ten) {
         Iterator<NguoiDung> iterator = ds.iterator();
-    while (iterator.hasNext()) {
-        NguoiDung nguoiDung = iterator.next();
-        if (nguoiDung.getHoTen().equals(ten)) {
-            iterator.remove();
-            System.out.println("Da xoa nguoi dung co ten: " + ten);
-            ghiNguoiDungVaoFile();  // Ghi người dùng vào file ngay sau khi xóa.
-            return;
+        while (iterator.hasNext()) {
+            NguoiDung nguoiDung = iterator.next();
+            if (nguoiDung.getHoTen().equals(ten)) {
+                iterator.remove();
+                System.out.println("Da xoa nguoi dung co ten: " + ten);
+                ghiNguoiDungVaoFile();  // Ghi người dùng vào file ngay sau khi xóa.
+                return;
+            }
         }
-    }
 
-    System.out.println("Khong tim thay nguoi dung co ten: " + ten);
+        System.out.println("Khong tim thay nguoi dung co ten: " + ten);
     }
 
     public void ghiNguoiDungVaoFile() {

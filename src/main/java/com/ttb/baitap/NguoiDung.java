@@ -19,7 +19,7 @@ public class NguoiDung {
     private LocalDate ngayGiaNhap;
 
     public void hienThi() {
-    System.out.printf("| %-25s | %-20s | %-8s  | %-15s | %-15s |\n", getHoTen(), getQueQuan(), getGioiTinh(), getNgaySinh().format(DateTimeFormatter.ofPattern(CauHinh.TIME)), getNgayGiaNhap().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
+    System.out.printf("| %-25s  | %-20s | %-8s   | %-15s  | %-15s  |\n", getHoTen(), getQueQuan(), getGioiTinh(), getNgaySinh().format(DateTimeFormatter.ofPattern(CauHinh.TIME)), getNgayGiaNhap().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
     
     }
 

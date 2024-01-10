@@ -10,16 +10,19 @@ public abstract class CauHoi {
     private List<PhuongAn> phuongAn;
     private Do_Kho doKho;
     private PhuongAn phuongAnDung;
-    
+    private int soThuTu;
     
     public abstract void hienThi(int n);
 
-    public CauHoi(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung) {
+    public CauHoi(String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung, int soThuTu) {
         this.noiDung = noiDung;
         this.phuongAn = phuongAn;
         this.doKho = doKho;
         this.phuongAnDung = phuongAnDung;
+        this.soThuTu = soThuTu;
     }
+
+    
     
        
     
@@ -83,6 +86,20 @@ public abstract class CauHoi {
      */
     public void setPhuongAnDung(PhuongAn phuongAnDung) {
         this.phuongAnDung = phuongAnDung;
+    }
+
+    /**
+     * @return the soThuTu
+     */
+    public int getSoThuTu() {
+        return soThuTu;
+    }
+
+    /**
+     * @param soThuTu the soThuTu to set
+     */
+    public void setSoThuTu(int soThuTu) {
+        this.soThuTu = soThuTu;
     }
 
     /**

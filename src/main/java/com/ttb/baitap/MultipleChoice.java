@@ -14,13 +14,13 @@ public class MultipleChoice extends CauHoi {
     private static int dem;
 
     public MultipleChoice() {
-        super(null, null, null,null);
+        super(null, null, null,null,0);
     }
    
     
     
-    public MultipleChoice( String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung,DanhMuc danhMuc, String ghiChu) {
-        super(noiDung, phuongAn, doKho,phuongAnDung);
+    public MultipleChoice( String noiDung, List<PhuongAn> phuongAn, Do_Kho doKho, PhuongAn phuongAnDung,int soThuTu,DanhMuc danhMuc, String ghiChu) {
+        super(noiDung, phuongAn, doKho,phuongAnDung,soThuTu);
         this.danhMuc = danhMuc;
         this.ghiChu = ghiChu;
     }
