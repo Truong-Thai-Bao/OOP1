@@ -28,7 +28,7 @@ public class QLCauHoi {
     public List<CauHoi> timCauHoi(DanhMuc danhMuc) {
         List<CauHoi> kq = new ArrayList<>();
         for (CauHoi c : ds) {
-            if (c instanceof MultipleChoice && ((MultipleChoice) c).getDanhMuc().equals(danhMuc)) {
+            if (((MultipleChoice) c).getDanhMuc().toString().toLowerCase().equals(danhMuc.toString().toLowerCase())) {
                 kq.add(c);
             }
         }
@@ -41,6 +41,7 @@ public class QLCauHoi {
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
                 String dm = sc.nextLine();
+                //System.out.println(dm);
                 String nd = sc.nextLine();
                 List<PhuongAn> listPa = new ArrayList<>();
                 String line = sc.nextLine();
@@ -61,6 +62,7 @@ public class QLCauHoi {
                 String gc = sc.nextLine();
                 //System.out.println(gc);
                 ds.add(new MultipleChoice(nd, listPa, doKho, new PhuongAn(pad), new DanhMuc(dm), gc));
+                //System.out.println(new PhuongAn(dm));
             }
         }
     }
@@ -158,7 +160,11 @@ public class QLCauHoi {
     }
 
     public void hienThiDsCauHoi() {
-        ds.forEach(c -> c.hienThi());
+        if(ds.isEmpty()){
+            System.out.println("Danh sach cau hoi rong");
+            return;
+        }
+        ds.forEach(c -> c.hienThi(1));
     }
 
     /**

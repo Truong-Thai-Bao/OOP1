@@ -28,14 +28,16 @@ public class MultipleChoice extends CauHoi {
     
     
     @Override
-    public void hienThi(){
-        System.out.printf("%d. %s\n",++dem,super.getNoiDung());
+    public void hienThi(int n){
+        if(n==0)
+            System.out.printf("%s\n",super.getNoiDung());
+        else
+            System.out.printf("%d. %s\n",++dem,super.getNoiDung());
         for(PhuongAn p:super.getPhuongAn())
             System.out.printf("%s\t", p);
         System.out.println();
         System.out.println();
     }
-    
 
 
 

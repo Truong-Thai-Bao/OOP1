@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Incomplete extends CauHoi {
 
-    protected static int dem=1;
+    protected static int dem = 1;
     protected int soThuTu;
-
+    protected static boolean flag = true;
     protected static int temp = 1;
 
     public Incomplete() {
@@ -18,15 +18,22 @@ public class Incomplete extends CauHoi {
         this.soThuTu = soThuTu;
     }
 
-
     @Override
-    public void hienThi() {
-        if (soThuTu == temp) {
+    public void hienThi(int n) {
+        if(temp!=soThuTu)
+            flag = true;
+        if (flag==true) {
             System.out.println(super.getNoiDung());
-            temp++;
+            flag = false;
+            temp=soThuTu;
         }
+        
         for (PhuongAn p : getPhuongAn()) {
-            System.out.printf("%d. %s\t", dem, p);
+            if (n == 0) {
+                System.out.printf("%s\t", p);
+            } else {
+                System.out.printf("%d. %s\t", dem, p);
+            }
         }
         dem++;
         System.out.println();

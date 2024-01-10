@@ -16,7 +16,7 @@ public class Test {
         //ql.docFileConversation();
         //ql.docFileIncomplete();
         ql.docFileMultipleChoice();
-        ql.hienThiDsCauHoi();
+        //ql.hienThiDsCauHoi();
         
     }
 

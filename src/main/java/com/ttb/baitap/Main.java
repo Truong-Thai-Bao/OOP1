@@ -2,6 +2,7 @@ package com.ttb.baitap;
 
 import com.ttb.baitap.CauHinh;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,7 +15,8 @@ import java.util.List;
  * @author USER
  */
 public class Main {
-
+    
+    
     public static void main(String[] args) throws FileNotFoundException {
         int choice;
         QLNguoiDung qlnd = new QLNguoiDung();
@@ -116,6 +118,7 @@ public class Main {
                 }
                 case 2 -> {
                     QLCauHoi qlch = new QLCauHoi();
+                    List<CauHoi> kq;
                     int choice2;
                     do {
                         System.out.println("    Chon dang cau hoi");
@@ -150,14 +153,14 @@ public class Main {
                                                 switch (choice212) {
                                                     case 1 -> {
                                                         System.out.println("Nhap noi dung can tim");
-                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
-                                                        qlch.hienThiDsCauHoi();
+                                                        kq = qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        hienThiDs(kq);
                                                         break;
                                                     }
                                                     case 2 -> {
                                                         System.out.println("Nhap loai danh muc can tim");
-                                                        qlch.timCauHoi(new DanhMuc(CauHinh.SC.nextLine()));
-                                                        qlch.hienThiDsCauHoi();
+                                                        kq = qlch.timCauHoi(new DanhMuc(CauHinh.SC.nextLine()));
+                                                        hienThiDs(kq);
                                                         break;
                                                     }
                                                     case 3 -> {
@@ -171,15 +174,18 @@ public class Main {
                                                             choice223 = Integer.parseInt(CauHinh.SC.nextLine());
                                                             switch (choice223) {
                                                                 case 1 -> {
-                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    kq = qlch.timCauHoi((Do_Kho.DE));
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 2 -> {
-                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    kq = qlch.timCauHoi((Do_Kho.TRUNG_BINH));
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 3 -> {
-                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    kq = qlch.timCauHoi((Do_Kho.KHO));
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 0 ->
@@ -190,9 +196,6 @@ public class Main {
                                                             }
                                                         } while (choice223 != 0);
                                                         // Goi cac phuong thuc luyen tap
-
-                                                        qlch.hienThiDsCauHoi();
-                                                        break;
                                                     }
                                                     case 0 ->
                                                         System.out.println("Ket thuc tim cau hoi.");
@@ -233,9 +236,10 @@ public class Main {
                                                 choice222 = Integer.parseInt(CauHinh.SC.nextLine());
                                                 switch (choice222) {
                                                     case 1 -> {
+                                                        qlch.docFileIncomplete();
                                                         System.out.println("Nhap noi dung can tim");
-                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
-                                                        qlch.hienThiDsCauHoi();
+                                                        kq = qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        hienThiDs(kq);
                                                         break;
                                                     }
                                                     case 2 -> {
@@ -249,15 +253,21 @@ public class Main {
                                                             choice2222 = Integer.parseInt(CauHinh.SC.nextLine());
                                                             switch (choice2222) {
                                                                 case 1 -> {
-                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    qlch.docFileIncomplete();
+                                                                    kq = qlch.timCauHoi(Do_Kho.DE);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 2 -> {
-                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    qlch.docFileIncomplete();
+                                                                    kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 3 -> {
-                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    qlch.docFileIncomplete();
+                                                                    kq = qlch.timCauHoi(Do_Kho.KHO);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 0 ->
@@ -269,8 +279,6 @@ public class Main {
                                                         } while (choice2222 != 0);
                                                         // Goi cac phuong thuc luyen tap
 
-                                                        qlch.hienThiDsCauHoi();
-                                                        break;
                                                     }
                                                     case 0 ->
                                                         System.out.println("Ket thuc tim cau hoi.");
@@ -311,9 +319,10 @@ public class Main {
                                                 choice232 = Integer.parseInt(CauHinh.SC.nextLine());
                                                 switch (choice232) {
                                                     case 1 -> {
+                                                        qlch.docFileConversation();
                                                         System.out.println("Nhap noi dung can tim");
-                                                        qlch.timCauHoi(CauHinh.SC.nextLine());
-                                                        qlch.hienThiDsCauHoi();
+                                                        kq = qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        hienThiDs(kq);
                                                         break;
                                                     }
                                                     case 2 -> {
@@ -327,19 +336,25 @@ public class Main {
                                                             choice2322 = Integer.parseInt(CauHinh.SC.nextLine());
                                                             switch (choice2322) {
                                                                 case 1 -> {
-                                                                    qlch.timCauHoi(Do_Kho.DE);
+                                                                    qlch.docFileConversation();
+                                                                    kq = qlch.timCauHoi(Do_Kho.DE);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 2 -> {
-                                                                    qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    qlch.docFileConversation();
+                                                                    kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 3 -> {
-                                                                    qlch.timCauHoi(Do_Kho.KHO);
+                                                                    qlch.docFileConversation();
+                                                                    kq = qlch.timCauHoi(Do_Kho.KHO);
+                                                                    hienThiDs(kq);
                                                                     break;
                                                                 }
                                                                 case 0 ->
-                                                                    System.out.println("Ket thuc luyen tap.");
+                                                                    System.out.println("Ket thuc tim cau hoi.");
                                                                 default ->
                                                                     System.out.println("Lua chon khong hop le. Vui long chon lai.");
 
@@ -347,8 +362,6 @@ public class Main {
                                                         } while (choice2322 != 0);
                                                         // Goi cac phuong thuc luyen tap
 
-                                                        qlch.hienThiDsCauHoi();
-                                                        break;
                                                     }
                                                     case 0 ->
                                                         System.out.println("Ket thuc tim cau hoi.");
@@ -367,7 +380,7 @@ public class Main {
                                 // Goi cac phuong thuc quan ly cau hoi
                             }
                             case 0 ->
-                                System.out.println("Ket thuc luyen tap.");
+                                System.out.println("Ket thuc quan ly cau hoi.");
                             default ->
                                 System.out.println("Lua chon khong hop le. Vui long chon lai.");
                         }
@@ -413,4 +426,13 @@ public class Main {
 
         } while (choice != 0);
     }
+    
+    public static void hienThiDs(List<CauHoi> kq){
+        if(kq.isEmpty()){
+            System.out.println("Khong tim thay ket qua");
+            return;
+        }
+        kq.forEach(c->c.hienThi(0));
+    }
 }
+
