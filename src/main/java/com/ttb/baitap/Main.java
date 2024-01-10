@@ -3,6 +3,7 @@ package com.ttb.baitap;
 import com.ttb.baitap.CauHinh;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,8 +16,7 @@ import java.util.List;
  * @author USER
  */
 public class Main {
-    
-    
+
     public static void main(String[] args) throws FileNotFoundException {
         int choice;
         QLNguoiDung qlnd = new QLNguoiDung();
@@ -72,8 +72,16 @@ public class Main {
                                             traCuu.hienThiDSNguoiDung();
                                         }
                                         case 3 -> {
-                                            System.out.print("Nhap ngay sinh: ");
-                                            traCuu.setDs(qlnd.traCuu(CauHinh.SC.nextLine()));
+
+                                            String ngaySinhStr;
+                                            Date ngaySinh = null;
+                                            do {
+                                                System.out.print("Nhap ngay sinh (dd/MM/yyyy): ");
+                                                ngaySinhStr = CauHinh.SC.nextLine();
+                                                ngaySinh = qlnd.chuyenDoiNgayThang(ngaySinhStr);
+                                            } while (ngaySinh == null);
+                                            ngaySinhStr = qlnd.chuyenDateSangChuoi(ngaySinh);
+                                            traCuu.setDs(qlnd.traCuu(ngaySinhStr));
                                             traCuu.hienThiDSNguoiDung();
                                         }
                                         case 4 -> {
@@ -426,13 +434,12 @@ public class Main {
 
         } while (choice != 0);
     }
-    
-    public static void hienThiDs(List<CauHoi> kq){
-        if(kq.isEmpty()){
+
+    public static void hienThiDs(List<CauHoi> kq) {
+        if (kq.isEmpty()) {
             System.out.println("Khong tim thay ket qua");
             return;
         }
-        kq.forEach(c->c.hienThi(0));
+        kq.forEach(c -> c.hienThi(0));
     }
 }
-
