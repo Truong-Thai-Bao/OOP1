@@ -31,6 +31,7 @@ public class Main {
         NguoiDung nguoiHocDangNhap=null;
         QLNguoiDung qlnd = new QLNguoiDung();
         QLNguoiDung traCuu = new QLNguoiDung();
+        qlnd.dSNguoiDung();
         int luaChon;
                     do{
                     System.out.println("Dang nhap - Dang ky:");
@@ -40,14 +41,16 @@ public class Main {
                                     luaChon = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (luaChon) {
                                         case 1 -> {
-                                            qlnd.themNguoiHocDK();
+                                            nguoiHocDangNhap=qlnd.themNguoiHocDK();
+                                            luaChon=0;
                                             break;
                                         }
                                         case 2 -> {
                                             nguoiHocDangNhap=qlnd.DangNhap();
-                                            if(nguoiHocDangNhap!=null)
-                                                System.out.println("Dang nhap thanh cong!!!");
-                                            else System.out.println("Dang nhap that bai!!!");
+                                            if(nguoiHocDangNhap!=null){
+                                            System.out.println("Dang nhap thanh cong!!!");
+                                            luaChon=0;
+                                            }    else System.out.println("Dang nhap that bai!!!");
                                         }
                                         case 0 ->
                                             System.out.println("Ket thuc dang ky - dang nhap.");
@@ -55,6 +58,7 @@ public class Main {
                                             System.out.println("Lua chon khong hop le. Vui long chon lai.");
                                     }
                     }while(luaChon!=0);
+        if(nguoiHocDangNhap!=null){
         do {
             System.out.println("MENU");
             System.out.println("1. Quan ly nguoi hoc");
@@ -67,7 +71,7 @@ public class Main {
 
             switch (choice) {
                 case 1 -> {
-                    qlnd.dSNguoiDung();
+                    
                     int choice1;
                     do {
                         System.out.println("    1. Xem danh sach nguoi hoc");
@@ -778,7 +782,7 @@ public class Main {
 
         } while (choice != 0);
     }
-
+}
     public static void hienThiDs(List<CauHoi> kq) {
         if (kq.isEmpty()) {
             System.out.println("Khong tim thay ket qua");

@@ -126,7 +126,7 @@ public class QLNguoiDung {
         System.out.println("Da them nguoi hoc: " + hoTen);
     }
 
-    public void themNguoiHocDK() {
+    public NguoiDung themNguoiHocDK() {
         System.out.println("DANG KI:");
         System.out.print("Nhap ho ten: ");
         String hoTen = CauHinh.SC.nextLine();
@@ -157,6 +157,7 @@ public class QLNguoiDung {
         ds.add(nguoiDung);
         ghiNguoiDungVaoFile(nguoiDung);
         System.out.println("Da them nguoi hoc: " + hoTen);
+        return nguoiDung;
     }
     
     public void ghiNguoiDungVaoFile(NguoiDung nguoiDung) {
