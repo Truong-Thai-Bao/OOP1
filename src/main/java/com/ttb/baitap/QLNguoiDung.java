@@ -35,7 +35,7 @@ public class QLNguoiDung {
         File f = new File("src/main/java/com/ttb/baitap/file/DSNGuoiDung");
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
-                this.ds.add(new NguoiDung(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine()));
+                this.ds.add(new NguoiDung(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(),sc.nextLine()));
             }
         }
     }
@@ -63,6 +63,14 @@ public class QLNguoiDung {
                 || nguoiDung.getGioiTinh().toLowerCase().contains(s.toLowerCase())
                 || nguoiDung.ngaySinhToString().equals(s)).collect(Collectors.toList());
     }
+    
+    public NguoiDung traCuuTheoTen(String tenCanTim) {
+        return ds.stream()
+                .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().contains(tenCanTim.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+    }
+
 
     public Date chuyenDoiNgayThang(String ngayThang) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -110,12 +118,47 @@ public class QLNguoiDung {
         } while (ngayGiaNhap == null);
         ngaySinhStr = chuyenDateSangChuoi(ngaySinh);
         ngayGiaNhapStr = chuyenDateSangChuoi(ngayGiaNhap);
-        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr);
+        //Them diem o day tam thoi cho diem bang 0
+        String diem="0";
+        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr,diem);
         ds.add(nguoiDung);
         ghiNguoiDungVaoFile(nguoiDung);
         System.out.println("Da them nguoi hoc: " + hoTen);
     }
 
+    public void themNguoiHocDK() {
+        System.out.println("DANG KI:");
+        System.out.print("Nhap ho ten: ");
+        String hoTen = CauHinh.SC.nextLine();
+        System.out.print("Nhap que quan: ");
+        String queQuan = CauHinh.SC.nextLine();
+        System.out.print("Nhap gioi tinh: ");
+        String gioiTinh = CauHinh.SC.nextLine();
+
+        String ngaySinhStr;
+        Date ngaySinh = null;
+        do {
+            System.out.print("Nhap ngay sinh (dd/MM/yyyy): ");
+            ngaySinhStr = CauHinh.SC.nextLine();
+            ngaySinh = chuyenDoiNgayThang(ngaySinhStr);
+        } while (ngaySinh == null);
+
+
+        String ngayGiaNhapStr;
+        LocalDate currentDate = LocalDate.now();
+
+        // Định dạng ngày tháng năm theo yêu cầu
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        ngayGiaNhapStr = currentDate.format(formatter);
+        ngaySinhStr = chuyenDateSangChuoi(ngaySinh);
+        //Them diem o day tam thoi cho diem bang 0
+        String diem="0";
+        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr,diem);
+        ds.add(nguoiDung);
+        ghiNguoiDungVaoFile(nguoiDung);
+        System.out.println("Da them nguoi hoc: " + hoTen);
+    }
+    
     public void ghiNguoiDungVaoFile(NguoiDung nguoiDung) {
         try ( PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/com/ttb/baitap/file/DSNGuoiDung", true))) {
             writer.println(nguoiDung.getHoTen());
@@ -123,6 +166,7 @@ public class QLNguoiDung {
             writer.println(nguoiDung.getGioiTinh());
             writer.println(nguoiDung.ngaySinhToString());
             writer.println(nguoiDung.ngayGiaNhapToString());
+            writer.println(nguoiDung.getDiem());
             System.out.println("Ghi file thanh cong.");
         } catch (IOException e) {
         }
@@ -151,6 +195,7 @@ public class QLNguoiDung {
                 writer.println(nguoiDung.getGioiTinh());
                 writer.println(nguoiDung.ngaySinhToString());
                 writer.println(nguoiDung.ngayGiaNhapToString());
+                writer.println(nguoiDung.getDiem());
             }
             System.out.println("Ghi file thanh cong.");
         } catch (FileNotFoundException e) {
@@ -241,6 +286,14 @@ public class QLNguoiDung {
             System.out.println("Khong tim thay nguoi dung co ten: " + ten + " - Luu y nhap dung ho ten!!!");
         }
 
+    }
+    
+    public NguoiDung DangNhap(){
+        System.out.println("DANG NHAP");
+        System.out.println("Nhap ho ten dang nhap:");
+        String hoTen = CauHinh.SC.nextLine();
+        
+        return traCuuTheoTen(hoTen);
     }
 
     /**

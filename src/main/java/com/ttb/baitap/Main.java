@@ -28,8 +28,33 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int choice;
+        NguoiDung nguoiHocDangNhap=null;
         QLNguoiDung qlnd = new QLNguoiDung();
         QLNguoiDung traCuu = new QLNguoiDung();
+        int luaChon;
+                    do{
+                    System.out.println("Dang nhap - Dang ky:");
+                                    System.out.println("        1. Dang ky");
+                                    System.out.println("        2. Dang nhap");
+                                    System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                    luaChon = Integer.parseInt(CauHinh.SC.nextLine());
+                                    switch (luaChon) {
+                                        case 1 -> {
+                                            qlnd.themNguoiHocDK();
+                                            break;
+                                        }
+                                        case 2 -> {
+                                            nguoiHocDangNhap=qlnd.DangNhap();
+                                            if(nguoiHocDangNhap!=null)
+                                                System.out.println("Dang nhap thanh cong!!!");
+                                            else System.out.println("Dang nhap that bai!!!");
+                                        }
+                                        case 0 ->
+                                            System.out.println("Ket thuc dang ky - dang nhap.");
+                                        default ->
+                                            System.out.println("Lua chon khong hop le. Vui long chon lai.");
+                                    }
+                    }while(luaChon!=0);
         do {
             System.out.println("MENU");
             System.out.println("1. Quan ly nguoi hoc");
@@ -742,6 +767,7 @@ public class Main {
                 }
 
                 case 4 -> {
+                    
                     
                 }
                 case 0 ->

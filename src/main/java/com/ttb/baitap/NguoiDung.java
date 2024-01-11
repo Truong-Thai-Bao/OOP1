@@ -17,22 +17,26 @@ public class NguoiDung {
     private LocalDate ngaySinh;
 
     private LocalDate ngayGiaNhap;
+    
+    private double diem;
+
 
     public void hienThi() {
     System.out.printf("| %-25s  | %-20s | %-8s   | %-15s  | %-15s  |\n", getHoTen(), getQueQuan(), getGioiTinh(), getNgaySinh().format(DateTimeFormatter.ofPattern(CauHinh.TIME)), getNgayGiaNhap().format(DateTimeFormatter.ofPattern(CauHinh.TIME)));
     
     }
 
-    public NguoiDung(String hoTen, String queQuan, String gioiTinh, LocalDate ngaySinh, LocalDate ngayGiaNhap) {
+    public NguoiDung(String hoTen, String queQuan, String gioiTinh, LocalDate ngaySinh, LocalDate ngayGiaNhap, double diem) {
         this.hoTen = hoTen;
         this.queQuan = queQuan;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
         this.ngayGiaNhap = ngayGiaNhap;
+        this.diem=diem;
     }
-    public NguoiDung(String hoTen, String queQuan, String gioiTinh, String ngaySinh, String ngayGiaNhap) {
+    public NguoiDung(String hoTen, String queQuan, String gioiTinh, String ngaySinh, String ngayGiaNhap,String diem) {
         this(hoTen, queQuan, gioiTinh,LocalDate.parse( ngaySinh,DateTimeFormatter.ofPattern(CauHinh.TIME)), 
-                LocalDate.parse( ngayGiaNhap,DateTimeFormatter.ofPattern(CauHinh.TIME)));
+                LocalDate.parse( ngayGiaNhap,DateTimeFormatter.ofPattern(CauHinh.TIME)),Double.parseDouble(diem));
     }
     
     
@@ -114,6 +118,20 @@ public class NguoiDung {
      */
     public void setNgayGiaNhap(LocalDate ngayGiaNhap) {
         this.ngayGiaNhap = ngayGiaNhap;
+    }
+
+    /**
+     * @return the diem
+     */
+    public double getDiem() {
+        return diem;
+    }
+
+    /**
+     * @param diem the diem to set
+     */
+    public void setDiem(double diem) {
+        this.diem = diem;
     }
     
     
