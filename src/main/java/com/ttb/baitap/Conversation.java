@@ -23,7 +23,9 @@ public class Conversation extends Incomplete {
             flag = false;
             temp=getSoThuTu();
         }
-        System.out.printf("%d.%s\n", dem++, cauHoiPhu);
+        if(n!=0)
+            System.out.printf("%d. ",dem++);
+        System.out.printf("%s\n", cauHoiPhu);
         for (PhuongAn p : getPhuongAn()) {
             System.out.printf("   %s\n", p);
         }

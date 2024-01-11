@@ -37,8 +37,151 @@ public class Test {
 //        System.out.println(b);
 //        List<Integer> c = Con();
 //        System.out.println(c);
+        //kiemTra(3, 4);
+        //kiemTraVaChenTrongFile(2, 3);
         //  ghiFile(20);
-        
+//        int choice32;
+        List<CauHoi> kq = new ArrayList<>();
+//        
+//        int rand = randSo(2);
+//        int diem = 0;
+//        int j = 1;
+//        String pad = null;
+        List<CauHoi> list = new ArrayList<>();
+//        do {
+//            System.out.println("Chon do kho");
+//            System.out.println("    1. De");
+//            System.out.println("    2. Trung binh");
+//            System.out.println("    3. Kho");
+//            System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+//            choice32 = Integer.parseInt(CauHinh.SC.nextLine());
+//            switch (choice32) {
+//                case 3 -> {
+//                    QLCauHoi qlch = new QLCauHoi();
+//                    qlch.docFileIncomplete();
+//                    kq = qlch.timCauHoi(Do_Kho.KHO);
+//                    while (kiemTra(2, rand)) {
+//                        rand = randSo(2);
+//                        j++;
+//                        if (j == 2) {
+//                            System.out.println("Da het cau hoi");
+//                            return;
+//                        }
+//                    }
+//                    for (CauHoi c : kq) {
+//                        if (c.getSoThuTu() == rand) {
+//                            c.hienThi(1);
+//                            System.out.print("Ban chon phuong an:");
+//                            String chon = CauHinh.SC.nextLine();
+//                            if (chon.equalsIgnoreCase(pad)) 
+//                                ghiDiem(diem);
+//                            
+//                            pad = c.getPhuongAnDung().toString();
+//                            diem = c.getDoKho().getDiemSo();
+//                            list.add(c);
+//                        }
+//                    }
+//                    list.forEach(c -> {
+//                        c.hienThi(0);
+//                        System.out.print("Phuong an dung: ");
+//                        System.out.println(c.getPhuongAnDung());
+//                        System.out.println("");
+//                    });
+//                    break;
+//                }
+//
+//            }
+//
+//        } while (choice32 != 0);
+        int rand = randSo(CauHinh.SL_CON);
+        int j = 1;
+        int diem = 0;
+        String pad = null;
+        QLCauHoi qlch = new QLCauHoi();
+        qlch.docFileConversation();
+        kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+        while (kiemTra(3, rand)) {
+            rand = randSo(CauHinh.SL_CON);
+            j++;
+            if (j == CauHinh.SL_CON) {
+                System.out.println("Da het cau hoi");
+                return;
+            }
+        }
+       
+        for (CauHoi c : kq) {
+            if (c.getSoThuTu() == rand) {
+                c.hienThi(1);
+                System.out.print("Ban chon phuong an:");
+                String chon = CauHinh.SC.nextLine();
+                if (chon.equalsIgnoreCase(pad)) {
+                    ghiDiem(diem);
+                }
+
+                pad = c.getPhuongAnDung().toString();
+                diem = c.getDoKho().getDiemSo();
+                list.add(c);
+            }
+        }
+        System.out.println("============DAP AN============");
+        list.forEach(c -> {
+            c.hienThi(0);
+            System.out.print("Phuong an dung: ");
+            System.out.println(c.getPhuongAnDung());
+            System.out.println("");
+        });
+    }
+
+    public static boolean kiemTraVaChen(int x, List<Integer> dong) {
+        if (dong.contains(x)) {
+            // Nếu x đã tồn tại trong dòng, trả về false
+            return false;
+        } else {
+            // Nếu x không tồn tại trong dòng, chèn x vào dòng và trả về false
+            dong.add(x);
+            return true;
+        }
+    }
+
+    public static void kiemTraVaChenTrongFile(int soDong, int x) {
+        List<List<Integer>> danhSachDong = new ArrayList<>();
+
+        // Đọc dữ liệu từ tệp tin vào danhSachDong
+        try ( BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/java/com/ttb/baitap/file/CauDaLam")))) {
+            for (int i = 0; i < soDong; i++) {
+                String line = reader.readLine();
+                if (line != null) {
+                    String[] tokens = line.split(" ");
+                    List<Integer> dong = new ArrayList<>();
+                    for (String token : tokens) {
+                        dong.add(Integer.parseInt(token));
+                    }
+                    danhSachDong.add(dong);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        boolean ketQua = kiemTraVaChen(x, danhSachDong.get(soDong - 1));
+
+        // Ghi dữ liệu vào tệp tin
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam")))) {
+            for (List<Integer> dong : danhSachDong) {
+                for (Integer so : dong) {
+                    writer.write(so + " ");
+                }
+                writer.newLine(); // Xuống dòng sau mỗi dòng
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (ketQua) {
+            System.out.println(x + " chưa tồn tại trong dòng cuối cùng. Đã chèn thành công.");
+        } else {
+            System.out.println(x + " đã tồn tại trong dòng cuối cùng. Không thực hiện chèn.");
+        }
     }
 
     public static boolean checkAndInsertNumber(int lineNumber, int targetNumber) throws IOException {

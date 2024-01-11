@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -231,7 +232,6 @@ public class Main {
                             }
                             case 2 -> {
                                 int choice22;
-                                qlch.docFileIncomplete();
                                 do {
                                     System.out.println("        1. Xem danh sach cau hoi");
                                     System.out.println("        2. Tim cau hoi");
@@ -239,7 +239,9 @@ public class Main {
                                     choice22 = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (choice22) {
                                         case 1 -> {
-                                            qlch.hienThiDsCauHoi();
+                                            QLCauHoi ql = new QLCauHoi();
+                                            ql.docFileIncomplete();
+                                            ql.hienThiDsCauHoi();
                                             break;
                                         }
                                         case 2 -> {
@@ -318,7 +320,7 @@ public class Main {
                             }
                             case 3 -> {
                                 int choice23;
-                                qlch.docFileConversation();
+
                                 do {
                                     System.out.println("        1. Xem danh sach cau hoi");
                                     System.out.println("        2. Tim cau hoi");
@@ -326,7 +328,9 @@ public class Main {
                                     choice23 = Integer.parseInt(CauHinh.SC.nextLine());
                                     switch (choice23) {
                                         case 1 -> {
-                                            qlch.hienThiDsCauHoi();
+                                            QLCauHoi ql = new QLCauHoi();
+                                            ql.docFileConversation();
+                                            ql.hienThiDsCauHoi();
                                             break;
                                         }
                                         case 2 -> {
@@ -339,9 +343,10 @@ public class Main {
                                                 choice232 = Integer.parseInt(CauHinh.SC.nextLine());
                                                 switch (choice232) {
                                                     case 1 -> {
-                                                        qlch.docFileConversation();
+                                                        QLCauHoi ql = new QLCauHoi();
+                                                        ql.docFileConversation();
                                                         System.out.println("Nhap noi dung can tim");
-                                                        kq = qlch.timCauHoi(CauHinh.SC.nextLine());
+                                                        kq = ql.timCauHoi(CauHinh.SC.nextLine());
                                                         hienThiDs(kq);
                                                         break;
                                                     }
@@ -425,21 +430,23 @@ public class Main {
                                 int n = Integer.parseInt(CauHinh.SC.nextLine());
                                 QLCauHoi ds = new QLCauHoi();
                                 kq = ds.docFileMultipleChoice();
-                                int rand = randSo(10);
+                                int rand = randSo(CauHinh.SL_MUL);
                                 int diem = 0;
                                 int j = 1;
                                 String pad = null;
                                 List<CauHoi> list = new ArrayList<>();
                                 for (int i = 0; i < n; i++) {
-                                    while (kiemTra(1, rand)){
-                                        rand = randSo(10);
+                                    while (kiemTra(1, rand)) {
+                                        rand = randSo(CauHinh.SL_MUL);
                                         j++;
-                                        if(j==10){
+                                        if (j == CauHinh.SL_MUL) {
                                             System.out.println("Da het cau hoi");
-                                            return;
+                                            break;
                                         }
                                     }
-
+                                    if (j == CauHinh.SL_CON) {
+                                        break;
+                                    }
                                     for (CauHoi c : kq) {
                                         if (c.getSoThuTu() == rand) {
                                             c.hienThi(1);
@@ -448,13 +455,15 @@ public class Main {
                                             list.add(c);
                                         }
                                     }
-                                    System.out.print("Ban chon phuong an:");
+                                    System.out.print("Ban chon phuong an: ");
                                     String chon = CauHinh.SC.nextLine();
                                     if (chon.equalsIgnoreCase(pad)) {
                                         ghiDiem(diem);
                                     }
                                 }
-                                list.forEach(c->{
+                                if (j == CauHinh.SL_CON)
+                                    break;
+                                list.forEach(c -> {
                                     c.hienThi(0);
                                     System.out.print("Phuong an dung: ");
                                     System.out.println(c.getPhuongAnDung());
@@ -463,9 +472,262 @@ public class Main {
                                 break;
                             }
                             case 2 -> {
-                                
+                                int choice32;
+                                QLCauHoi ds = new QLCauHoi();
+                                kq = ds.docFileIncomplete();
+                                int rand = randSo(CauHinh.SL_INC);
+                                int diem = 0;
+                                int j = 1;
+                                String pad = null;
+                                List<CauHoi> list = new ArrayList<>();
+                                do {
+                                    System.out.println("Chon do kho");
+                                    System.out.println("    1. De");
+                                    System.out.println("    2. Trung binh");
+                                    System.out.println("    3. Kho");
+                                    System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                    choice32 = Integer.parseInt(CauHinh.SC.nextLine());
+                                    switch (choice32) {
+                                        case 1 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileIncomplete();
+                                            kq = qlch.timCauHoi(Do_Kho.DE);
+                                            while (kiemTra(2, rand)) {
+                                                rand = randSo(CauHinh.SL_INC);
+                                                j++;
+                                                if (j == CauHinh.SL_INC) {
+                                                    System.out.println("Da het cau hoi");
+                                                    return;
+                                                }
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 2 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileIncomplete();
+                                            kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                            while (kiemTra(2, rand)) {
+                                                rand = randSo(CauHinh.SL_INC);
+                                                j++;
+                                                if (j == CauHinh.SL_INC) {
+                                                    System.out.println("Da het cau hoi");
+                                                    return;
+                                                }
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 3 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileIncomplete();
+                                            kq = qlch.timCauHoi(Do_Kho.KHO);
+                                            while (kiemTra(2, rand)) {
+                                                rand = randSo(CauHinh.SL_INC);
+                                                j++;
+                                                if (j == CauHinh.SL_INC) {
+                                                    System.out.println("Da het cau hoi");
+                                                    return;
+                                                }
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 0 ->
+                                            System.out.println("Ket thuc tim cau hoi.");
+                                        default ->
+                                            System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                    }
+                                } while (choice32 != 0);
                             }
                             case 3 -> {
+                                int choice33;
+                                QLCauHoi ds = new QLCauHoi();
+                                kq = ds.docFileConversation();
+                                int rand = randSo(CauHinh.SL_CON);
+                                int diem = 0;
+                                int j = 1;
+                                String pad = null;
+                                List<CauHoi> list = new ArrayList<>();
+                                do {
+                                    System.out.println("Chon do kho");
+                                    System.out.println("    1. De");
+                                    System.out.println("    2. Trung binh");
+                                    System.out.println("    3. Kho");
+                                    System.out.print("Nhap lua chon cua ban (0 de thoat): ");
+                                    choice33 = Integer.parseInt(CauHinh.SC.nextLine());
+                                    switch (choice33) {
+                                        case 1 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileConversation();
+                                            kq = qlch.timCauHoi(Do_Kho.DE);
+                                            while (kiemTra(3, rand)) {
+                                                rand = randSo(CauHinh.SL_CON);
+                                                j++;
+                                                if (j == CauHinh.SL_CON) {
+                                                    System.out.println("Da het cau hoi");
+                                                    return;
+                                                }
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 2 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileConversation();
+                                            kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+                                            while (kiemTra(3, rand)) {
+                                                rand = randSo(CauHinh.SL_CON);
+                                                j++;
+                                                if (j == CauHinh.SL_CON) {
+                                                    System.out.println("Da het cau hoi");
+                                                    return;
+                                                }
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            System.out.println("==========DAP AN==========");
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 3 -> {
+                                            QLCauHoi qlch = new QLCauHoi();
+                                            qlch.docFileConversation();
+                                            kq = qlch.timCauHoi(Do_Kho.KHO);
+                                            while (kiemTra(3, rand)) {
+                                                rand = randSo(CauHinh.SL_CON);
+                                                j++;
+                                                if (j == CauHinh.SL_CON) {
+                                                    System.out.println("Da het cau hoi");
+                                                    break;
+                                                }
+                                            }
+                                            if (j == CauHinh.SL_CON) {
+                                                break;
+                                            }
+                                            for (CauHoi c : kq) {
+                                                if (c.getSoThuTu() == rand) {
+                                                    c.hienThi(1);
+                                                    System.out.print("Ban chon phuong an:");
+                                                    String chon = CauHinh.SC.nextLine();
+                                                    if (chon.equalsIgnoreCase(pad)) {
+                                                        ghiDiem(diem);
+                                                    }
+
+                                                    pad = c.getPhuongAnDung().toString();
+                                                    diem = c.getDoKho().getDiemSo();
+                                                    list.add(c);
+                                                }
+                                            }
+                                            System.out.println("============DAP AN============");
+                                            list.forEach(c -> {
+                                                c.hienThi(0);
+                                                System.out.print("Phuong an dung: ");
+                                                System.out.println(c.getPhuongAnDung());
+                                                System.out.println("");
+                                            });
+                                            break;
+                                        }
+                                        case 0 ->
+                                            System.out.println("Ket thuc tim cau hoi.");
+                                        default ->
+                                            System.out.println("Lua chon khong hop le. Vui long chon lai.");
+
+                                    }
+                                } while (choice33 != 0);
 
                             }
                             case 0 ->
@@ -474,12 +736,13 @@ public class Main {
                                 System.out.println("Lua chon khong hop le. Vui long chon lai.");
 
                         }
+
                     } while (choice3 != 0);
                     // Goi cac phuong thuc luyen tap
                 }
+
                 case 4 -> {
-                    System.out.println("    Thong ke ket qua hoc tap cua hoc vien");
-                    // Goi cac phuong thuc thong ke
+                    
                 }
                 case 0 ->
                     System.out.println("Ket thuc chuong trinh.");
@@ -499,59 +762,47 @@ public class Main {
     }
 
     public static boolean kiemTra(int lineNumber, int targetNumber) throws IOException {
-    try (Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
-        StringBuilder content = new StringBuilder();
-        int currentLineNumber = 1;
-        boolean foundTargetNumber = false;
+        String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine().trim();
-            if (currentLineNumber == lineNumber) {
-                boolean containsTargetNumber = false;
-                String[] numbers = line.split("\\s+");
+        try {
+            // Đọc nội dung từ file
+            BufferedReader br = new BufferedReader(new FileReader(tenFile));
+            String[] lines = new String[3]; // Mảng lưu trữ 6 dòng
 
-                for (String numberString : numbers) {
-                    try {
-                        int currentNumber = Integer.parseInt(numberString);
-                        content.append(currentNumber).append(" ");
-                        if (currentNumber == targetNumber) {
-                            foundTargetNumber = true;
-                        }
-                    } catch (NumberFormatException e) {
-                        
-                    }
-                }
-
-                if (!foundTargetNumber) {
-                    // Nếu không tìm thấy số, thêm targetNumber vào dòng đó
-                    content.append(targetNumber).append(" ");
-                }
+            // Đọc dòng từ file và lưu vào mảng
+            for (int i = 0; i < 3; i++) {
+                lines[i] = br.readLine();
             }
 
-            currentLineNumber++;
+            // Đóng đối tượng đọc file
+            br.close();
+            if (lines[lineNumber - 1].trim().isBlank() || !lines[lineNumber - 1].contains(Integer.toString(targetNumber))) // Ghi giá trị mới vào dòng thứ 6
+            {
+                lines[lineNumber - 1] += Integer.toString(targetNumber) + " ";
+                BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
+                for (String line : lines) {
+                    bw.write(line);
+                    bw.newLine();
+                }
+                bw.close();
+                return false;
+            } else {
+                return true;
+            }
+
+            // Ghi lại toàn bộ nội dung vào file
+            // Đóng đối tượng ghi file
+        } catch (IOException e) {
+            System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
         }
-
-        // Ghi lại nội dung vào file
-        Chen(content.toString());
-
-        return foundTargetNumber;
-    } catch (FileNotFoundException e) {
-        System.err.println("File not found: " + "src/main/java/com/ttb/baitap/file/CauDaLam");
         return false;
     }
-}
 
-    private static void Chen(String content) throws IOException {
-        try (FileWriter writer = new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
-            writer.write(content);
-        }
-    }
-    
     public static int randSo(int n) {
         Random random = new Random();
         return random.nextInt(n) + 1;
     }
-    
+
     public static void ghiDiem(int diem) {
         // Đường dẫn của file cần ghi
         String tenFile = "src/main/java/com/ttb/baitap/file/ThongKeLuyenTap"; // Thay đổi đường dẫn và tên file tùy ý
@@ -568,12 +819,13 @@ public class Main {
 
             // Đóng đối tượng đọc file
             br.close();
-            if(lines[5].trim().isEmpty())
-            // Ghi giá trị mới vào dòng thứ 6
+            if (lines[5].trim().isEmpty()) // Ghi giá trị mới vào dòng thứ 6
+            {
                 lines[5] = Integer.toString(diem);
-            else
-                lines[5] = Integer.toString(diem+Integer.parseInt(lines[5]));
-            
+            } else {
+                lines[5] = Integer.toString(diem + Integer.parseInt(lines[5]));
+            }
+
             // Ghi lại toàn bộ nội dung vào file
             BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
             for (String line : lines) {
