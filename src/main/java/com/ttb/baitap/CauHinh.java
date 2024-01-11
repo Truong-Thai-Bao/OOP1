@@ -14,7 +14,7 @@ public class CauHinh {
 
     public static final Scanner SC = new Scanner(System.in);
     public static final String TIME = "dd/MM/yyyy";
-    public static final int SL_MUL=10;
+    public static final int SL_MUL=16;
     public static final int SL_INC=2;
-    public static final int SL_CON=3;
+    public static final int SL_CON=2;
 }

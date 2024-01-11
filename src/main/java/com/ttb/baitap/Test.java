@@ -4,7 +4,7 @@
  */
 package com.ttb.baitap;
 
-import static com.ttb.baitap.Main.ghiDiem;
+//import static com.ttb.baitap.Main.ghiDiem;
 import static com.ttb.baitap.Main.kiemTra;
 import static com.ttb.baitap.Main.randSo;
 import java.io.BufferedReader;
@@ -15,8 +15,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -27,11 +30,11 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         QLCauHoi ql = new QLCauHoi();
-        //ql.docFileConversation();
+      //  ql.docFileConversation();
         //ql.docFileIncomplete();
         //ql.docFileMultipleChoice();
-        //ql.hienThiDsCauHoi();
-        // boolean b = checkAndInsertNumber(1,5);
+      //  ql.hienThiDsCauHoi();
+       // boolean b = checkAndInsertNumber(1,5);
 //        System.out.println(a);
 //        List<Integer> b = Inc();
 //        System.out.println(b);
@@ -41,13 +44,13 @@ public class Test {
         //kiemTraVaChenTrongFile(2, 3);
         //  ghiFile(20);
 //        int choice32;
-        List<CauHoi> kq = new ArrayList<>();
+        //List<CauHoi> kq = new ArrayList<>();
 //        
 //        int rand = randSo(2);
 //        int diem = 0;
 //        int j = 1;
 //        String pad = null;
-        List<CauHoi> list = new ArrayList<>();
+        //List<CauHoi> list = new ArrayList<>();
 //        do {
 //            System.out.println("Chon do kho");
 //            System.out.println("    1. De");
@@ -93,43 +96,70 @@ public class Test {
 //            }
 //
 //        } while (choice32 != 0);
-        int rand = randSo(CauHinh.SL_CON);
-        int j = 1;
-        int diem = 0;
-        String pad = null;
-        QLCauHoi qlch = new QLCauHoi();
-        qlch.docFileConversation();
-        kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
-        while (kiemTra(3, rand)) {
-            rand = randSo(CauHinh.SL_CON);
-            j++;
-            if (j == CauHinh.SL_CON) {
-                System.out.println("Da het cau hoi");
-                return;
-            }
-        }
-       
-        for (CauHoi c : kq) {
-            if (c.getSoThuTu() == rand) {
-                c.hienThi(1);
-                System.out.print("Ban chon phuong an:");
-                String chon = CauHinh.SC.nextLine();
-                if (chon.equalsIgnoreCase(pad)) {
-                    ghiDiem(diem);
-                }
+//        int rand = randSo(CauHinh.SL_CON);
+//        int j = 1;
+//        int diem = 0;
+//        String pad = null;
+//        QLCauHoi qlch = new QLCauHoi();
+//        qlch.docFileConversation();
+//        kq = qlch.timCauHoi(Do_Kho.TRUNG_BINH);
+//        while (kiemTra(3, rand)) {
+//            rand = randSo(CauHinh.SL_CON);
+//            j++;
+//            if (j == CauHinh.SL_CON) {
+//                System.out.println("Da het cau hoi");
+//                return;
+//            }
+//        }
+//       
+//        for (CauHoi c : kq) {
+//            if (c.getSoThuTu() == rand) {
+//                c.hienThi(1);
+//                System.out.print("Ban chon phuong an:");
+//                String chon = CauHinh.SC.nextLine();
+//                if (chon.equalsIgnoreCase(pad)) {
+//                    ghiDiem(diem);
+//                }
+//
+//                pad = c.getPhuongAnDung().toString();
+//                diem = c.getDoKho().getDiemSo();
+//                list.add(c);
+//            }
+//        }
+//        System.out.println("============DAP AN============");
+//        list.forEach(c -> {
+//            c.hienThi(0);
+//            System.out.print("Phuong an dung: ");
+//            System.out.println(c.getPhuongAnDung());
+//            System.out.println("");
+//        });
+        //ghiDiem(2,3);
+        //System.out.println(readNearLastIntegerFromFile("src/main/java/com/ttb/baitap/file/ThongKeLuyenTap"));
+        xoaDsDaLam(2);
+    }
 
-                pad = c.getPhuongAnDung().toString();
-                diem = c.getDoKho().getDiemSo();
-                list.add(c);
+    public static int soLanGanNhat(String filePath) throws FileNotFoundException {
+        ArrayList<Integer> integers = new ArrayList<>();
+
+        try (Scanner sc = new Scanner(new File(filePath))) {
+            while (sc.hasNext()) {
+                String token = sc.next();
+                try {
+                    int number = Integer.parseInt(token);
+                    integers.add(number);
+                } catch (NumberFormatException e) {
+                    // Nếu không phải số nguyên, bỏ qua
+                }
             }
         }
-        System.out.println("============DAP AN============");
-        list.forEach(c -> {
-            c.hienThi(0);
-            System.out.print("Phuong an dung: ");
-            System.out.println(c.getPhuongAnDung());
-            System.out.println("");
-        });
+
+        // Nếu có ít nhất 2 số nguyên trong mảng, trả về số gần cuối
+        if (integers.size() >= 2) {
+            return integers.get(integers.size() - 2);
+        } else {
+            // Nếu không đủ số nguyên, có thể xử lý theo ý của bạn (throw exception, trả về giá trị mặc định, etc.)
+            throw new RuntimeException("Không đủ số nguyên trong file.");
+        }
     }
 
     public static boolean kiemTraVaChen(int x, List<Integer> dong) {
@@ -322,6 +352,37 @@ public class Test {
         }
     }
 
+    public static void xoaDsDaLam(int soDong){
+        String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
+
+        try {
+            // Đọc nội dung từ file
+            BufferedReader br = new BufferedReader(new FileReader(tenFile));
+            String[] lines = new String[3]; // Mảng lưu trữ 6 dòng
+
+            // Đọc dòng từ file và lưu vào mảng
+            for (int i = 0; i < 3; i++) {
+                lines[i] = br.readLine();
+            }
+
+            // Đóng đối tượng đọc file
+            br.close();
+            lines[soDong-1] = "";
+            // Ghi lại toàn bộ nội dung vào file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+
+            // Đóng đối tượng ghi file
+            bw.close();
+
+        } catch (IOException e) {
+
+        }
+    }
+    
 //    public static void ghiFile(int diem) throws FileNotFoundException, IOException {
 //        File f = new File("src/main/java/com/ttb/baitap/file/CauDaLam");
 //        FileWriter fw = new FileWriter(f, true);
