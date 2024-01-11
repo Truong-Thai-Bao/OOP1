@@ -1,8 +1,11 @@
 package com.ttb.baitap;
 
 import com.ttb.baitap.CauHinh;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -423,15 +426,44 @@ public class Main {
                                 QLCauHoi ds = new QLCauHoi();
                                 kq = ds.docFileMultipleChoice();
                                 int rand = randSo(10);
+                                int diem = 0;
+                                int j = 1;
+                                String pad = null;
+                                List<CauHoi> list = new ArrayList<>();
                                 for (int i = 0; i < n; i++) {
-                                    while(kiemTra(1,rand))
+                                    while (kiemTra(1, rand)){
                                         rand = randSo(10);
-                                    
+                                        j++;
+                                        if(j==10){
+                                            System.out.println("Da het cau hoi");
+                                            return;
+                                        }
+                                    }
+
+                                    for (CauHoi c : kq) {
+                                        if (c.getSoThuTu() == rand) {
+                                            c.hienThi(1);
+                                            pad = c.getPhuongAnDung().toString();
+                                            diem = c.getDoKho().getDiemSo();
+                                            list.add(c);
+                                        }
+                                    }
+                                    System.out.print("Ban chon phuong an:");
+                                    String chon = CauHinh.SC.nextLine();
+                                    if (chon.equalsIgnoreCase(pad)) {
+                                        ghiDiem(diem);
+                                    }
                                 }
+                                list.forEach(c->{
+                                    c.hienThi(0);
+                                    System.out.print("Phuong an dung: ");
+                                    System.out.println(c.getPhuongAnDung());
+                                    System.out.println("");
+                                });
                                 break;
                             }
                             case 2 -> {
-
+                                
                             }
                             case 3 -> {
 
@@ -467,48 +499,47 @@ public class Main {
     }
 
     public static boolean kiemTra(int lineNumber, int targetNumber) throws IOException {
-        try (Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
-            StringBuilder content = new StringBuilder();
-            int currentLineNumber = 1;
+    try (Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
+        StringBuilder content = new StringBuilder();
+        int currentLineNumber = 1;
+        boolean foundTargetNumber = false;
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (currentLineNumber == lineNumber) {
-                    boolean containsTargetNumber = false;
-                    String[] numbers = line.split("\\s+");
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
+            if (currentLineNumber == lineNumber) {
+                boolean containsTargetNumber = false;
+                String[] numbers = line.split("\\s+");
 
-                    for (String numberString : numbers) {
-                        try {
-                            int currentNumber = Integer.parseInt(numberString);
-                            content.append(currentNumber).append(" ");
-                            if (currentNumber == targetNumber) {
-                                containsTargetNumber = true;
-                            }
-                        } catch (NumberFormatException e) {
-                            System.err.println("Invalid number format: " + numberString);
+                for (String numberString : numbers) {
+                    try {
+                        int currentNumber = Integer.parseInt(numberString);
+                        content.append(currentNumber).append(" ");
+                        if (currentNumber == targetNumber) {
+                            foundTargetNumber = true;
                         }
+                    } catch (NumberFormatException e) {
+                        
                     }
-
-                    if (!containsTargetNumber) {
-                        // Nếu không tìm thấy số, thêm targetNumber vào dòng đó
-                        content.append(targetNumber).append(" ");
-                    }
-                } else {
-                    content.append(line).append(System.lineSeparator());
                 }
 
-                currentLineNumber++;
+                if (!foundTargetNumber) {
+                    // Nếu không tìm thấy số, thêm targetNumber vào dòng đó
+                    content.append(targetNumber).append(" ");
+                }
             }
 
-            // Ghi lại nội dung vào file
-            Chen(content.toString());
-
-            return content.toString().contains(String.valueOf(targetNumber));
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + "src/main/java/com/ttb/baitap/file/CauDaLam");
-            return false;
+            currentLineNumber++;
         }
+
+        // Ghi lại nội dung vào file
+        Chen(content.toString());
+
+        return foundTargetNumber;
+    } catch (FileNotFoundException e) {
+        System.err.println("File not found: " + "src/main/java/com/ttb/baitap/file/CauDaLam");
+        return false;
     }
+}
 
     private static void Chen(String content) throws IOException {
         try (FileWriter writer = new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
@@ -519,5 +550,42 @@ public class Main {
     public static int randSo(int n) {
         Random random = new Random();
         return random.nextInt(n) + 1;
+    }
+    
+    public static void ghiDiem(int diem) {
+        // Đường dẫn của file cần ghi
+        String tenFile = "src/main/java/com/ttb/baitap/file/ThongKeLuyenTap"; // Thay đổi đường dẫn và tên file tùy ý
+
+        try {
+            // Đọc nội dung từ file
+            BufferedReader br = new BufferedReader(new FileReader(tenFile));
+            String[] lines = new String[6]; // Mảng lưu trữ 6 dòng
+
+            // Đọc dòng từ file và lưu vào mảng
+            for (int i = 0; i < 6; i++) {
+                lines[i] = br.readLine();
+            }
+
+            // Đóng đối tượng đọc file
+            br.close();
+            if(lines[5].trim().isEmpty())
+            // Ghi giá trị mới vào dòng thứ 6
+                lines[5] = Integer.toString(diem);
+            else
+                lines[5] = Integer.toString(diem+Integer.parseInt(lines[5]));
+            
+            // Ghi lại toàn bộ nội dung vào file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+
+            // Đóng đối tượng ghi file
+            bw.close();
+
+        } catch (IOException e) {
+            System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
+        }
     }
 }

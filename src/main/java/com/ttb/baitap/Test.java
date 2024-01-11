@@ -4,10 +4,17 @@
  */
 package com.ttb.baitap;
 
+import static com.ttb.baitap.Main.ghiDiem;
+import static com.ttb.baitap.Main.kiemTra;
+import static com.ttb.baitap.Main.randSo;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,16 +31,18 @@ public class Test {
         //ql.docFileIncomplete();
         //ql.docFileMultipleChoice();
         //ql.hienThiDsCauHoi();
-        boolean b = checkAndInsertNumber(3,5);
+        // boolean b = checkAndInsertNumber(1,5);
 //        System.out.println(a);
 //        List<Integer> b = Inc();
 //        System.out.println(b);
 //        List<Integer> c = Con();
 //        System.out.println(c);
+        //  ghiFile(20);
+        
     }
 
-       public static boolean checkAndInsertNumber(int lineNumber, int targetNumber) throws IOException {
-        try (Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
+    public static boolean checkAndInsertNumber(int lineNumber, int targetNumber) throws IOException {
+        try ( Scanner scanner = new Scanner(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
             StringBuilder content = new StringBuilder();
             int currentLineNumber = 1;
 
@@ -51,7 +60,7 @@ public class Test {
                                 containsTargetNumber = true;
                             }
                         } catch (NumberFormatException e) {
-                            System.err.println("Invalid number format: " + numberString);
+
                         }
                     }
 
@@ -77,7 +86,7 @@ public class Test {
     }
 
     private static void writeContentToFile(String content) throws IOException {
-        try (FileWriter writer = new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
+        try ( FileWriter writer = new FileWriter(new File("src/main/java/com/ttb/baitap/file/CauDaLam"))) {
             writer.write(content);
         }
     }
@@ -130,4 +139,52 @@ public class Test {
             return numbers;
         }
     }
+
+    public static void ghiFile(int diem) {
+        // Đường dẫn của file cần ghi
+        String tenFile = "src/main/java/com/ttb/baitap/file/ThongKeLuyenTap"; // Thay đổi đường dẫn và tên file tùy ý
+
+        try {
+            // Đọc nội dung từ file
+            BufferedReader br = new BufferedReader(new FileReader(tenFile));
+            String[] lines = new String[6]; // Mảng lưu trữ 6 dòng
+
+            // Đọc dòng từ file và lưu vào mảng
+            for (int i = 0; i < 6; i++) {
+                lines[i] = br.readLine();
+            }
+
+            // Đóng đối tượng đọc file
+            br.close();
+            if (lines[5].trim().isEmpty()) // Ghi giá trị mới vào dòng thứ 6
+            {
+                lines[5] = Integer.toString(diem);
+            } else {
+                lines[5] = Integer.toString(diem + Integer.parseInt(lines[5]));
+            }
+
+            // Ghi lại toàn bộ nội dung vào file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+
+            // Đóng đối tượng ghi file
+            bw.close();
+
+            System.out.println("Ghi thành công vào file.");
+        } catch (IOException e) {
+            System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
+        }
+    }
+
+//    public static void ghiFile(int diem) throws FileNotFoundException, IOException {
+//        File f = new File("src/main/java/com/ttb/baitap/file/CauDaLam");
+//        FileWriter fw = new FileWriter(f, true);
+//        try(PrintWriter w = new PrintWriter(fw)){
+//            w.println(); 
+//                
+//        }
+//    }
 }
