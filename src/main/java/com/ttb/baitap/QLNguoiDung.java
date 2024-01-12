@@ -45,7 +45,7 @@ public class QLNguoiDung {
             System.out.println("Khong tim thay nguoi dung nao");
             return;
         }
-
+        System.out.println("\t\t\t\t==========DANH SACH NGUOI DUNG==========");
         System.out.println("+----------------------------+----------------------+------------+------------------+------------------+");
 
         System.out.printf("| %-25s  | %-20s | %-8s  | %-15s  | %-15s  |\n", "Ho ten", "Que quan", "Gioi tinh", "Ngay sinh", "Ngay gia nhap");

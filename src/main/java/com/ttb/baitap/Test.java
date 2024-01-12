@@ -5,8 +5,11 @@
 package com.ttb.baitap;
 
 //import static com.ttb.baitap.Main.ghiDiem;
+import static com.ttb.baitap.Main.ghiDiem;
+import static com.ttb.baitap.Main.IncAndCon;
 import static com.ttb.baitap.Main.kiemTra;
 import static com.ttb.baitap.Main.randSo;
+import static com.ttb.baitap.Main.xoaDs;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,11 +33,11 @@ public class Test {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         QLCauHoi ql = new QLCauHoi();
-      //  ql.docFileConversation();
+        //  ql.docFileConversation();
         //ql.docFileIncomplete();
         //ql.docFileMultipleChoice();
-      //  ql.hienThiDsCauHoi();
-       // boolean b = checkAndInsertNumber(1,5);
+        //  ql.hienThiDsCauHoi();
+        // boolean b = checkAndInsertNumber(1,5);
 //        System.out.println(a);
 //        List<Integer> b = Inc();
 //        System.out.println(b);
@@ -135,13 +138,14 @@ public class Test {
 //        });
         //ghiDiem(2,3);
         //System.out.println(readNearLastIntegerFromFile("src/main/java/com/ttb/baitap/file/ThongKeLuyenTap"));
-        xoaDsDaLam(2);
+        //xoaDsDaLam(2);
+        //IncAndCon(Do_Kho.KHO, 2, nguoiDung);
     }
 
     public static int soLanGanNhat(String filePath) throws FileNotFoundException {
         ArrayList<Integer> integers = new ArrayList<>();
 
-        try (Scanner sc = new Scanner(new File(filePath))) {
+        try ( Scanner sc = new Scanner(new File(filePath))) {
             while (sc.hasNext()) {
                 String token = sc.next();
                 try {
@@ -352,7 +356,7 @@ public class Test {
         }
     }
 
-    public static void xoaDsDaLam(int soDong){
+    public static void xoaDsDaLam(int soDong) {
         String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
 
         try {
@@ -367,7 +371,7 @@ public class Test {
 
             // Đóng đối tượng đọc file
             br.close();
-            lines[soDong-1] = "";
+            lines[soDong - 1] = "";
             // Ghi lại toàn bộ nội dung vào file
             BufferedWriter bw = new BufferedWriter(new FileWriter(tenFile));
             for (String line : lines) {
@@ -382,6 +386,7 @@ public class Test {
 
         }
     }
+
     
 //    public static void ghiFile(int diem) throws FileNotFoundException, IOException {
 //        File f = new File("src/main/java/com/ttb/baitap/file/CauDaLam");
