@@ -11,7 +11,6 @@ public class MultipleChoice extends CauHoi {
     
     private DanhMuc danhMuc;
     private String ghiChu;
-    private static int dem;
 
     public MultipleChoice() {
         super(null, null, null,null,0);

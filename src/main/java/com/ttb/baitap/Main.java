@@ -880,7 +880,7 @@ public class Main {
     public static Map<String, Integer> thongKeDiemTheoThang(NguoiDung nguoiDung) throws IOException {
         String name = nguoiDung.getHoTen();
         Path filePath = Paths.get("src/main/java/com/ttb/baitap/file/", name);
-
+        System.out.println("hi");
         Map<String, Integer> diemTheoThang = new HashMap<>();
 
         try ( BufferedReader br = new BufferedReader(new FileReader(filePath.toFile()))) {

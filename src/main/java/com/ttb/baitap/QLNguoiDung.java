@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -179,7 +182,7 @@ public class QLNguoiDung {
         }
     }
 
-    public void xoaNguoiDung(String ten) {
+    public void xoaNguoiDung(String ten) throws IOException {
         Iterator<NguoiDung> iterator = ds.iterator();
         while (iterator.hasNext()) {
             NguoiDung nguoiDung = iterator.next();
@@ -187,6 +190,9 @@ public class QLNguoiDung {
                 iterator.remove();
                 System.out.println("Da xoa nguoi dung co ten: " + ten);
                 ghiNguoiDungVaoFile();  // Ghi người dùng vào file ngay sau khi xóa.
+                String s = "src/main/java/com/ttb/baitap/file/"+ten;
+                Path path = Paths.get(s);
+                Files.delete(path);
                 return;
             }
         }

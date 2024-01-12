@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Incomplete extends CauHoi {
 
-    protected static int dem = 1;
     protected static boolean flag = true;
     protected static int temp = 1;
 
@@ -29,7 +28,7 @@ public class Incomplete extends CauHoi {
             temp=getSoThuTu();
         }
         if(n!=0)
-            System.out.printf("%d. ",dem);
+            System.out.printf("%d. ",super.dem);
         for (PhuongAn p : getPhuongAn()) {
                 System.out.printf("%s\t", p);
         }
