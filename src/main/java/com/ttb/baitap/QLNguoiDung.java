@@ -64,13 +64,19 @@ public class QLNguoiDung {
                 || nguoiDung.ngaySinhToString().equals(s)).collect(Collectors.toList());
     }
     
-    public NguoiDung traCuuTheoTen(String tenCanTim) {
-        return ds.stream()
-                .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().contains(tenCanTim.toLowerCase()))
-                .findFirst()
-                .orElse(null);
-    }
+//    public NguoiDung traCuuTheoTen(String tenCanTim) {
+//        return ds.stream()
+//                .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().contains(tenCanTim.toLowerCase()))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
+    public NguoiDung traCuuTheoTen(String tenCanTim) {
+    return ds.stream()
+            .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().equals(tenCanTim.toLowerCase()))
+            .findFirst()
+            .orElse(null);
+}
 
     public Date chuyenDoiNgayThang(String ngayThang) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
