@@ -595,12 +595,36 @@ public class Main {
 
                         Map<String, Integer> diemTheoThang = thongKeDiemTheoThang(nguoiHocDangNhap);
                         int tamThoi = 0;
-                        for (int i = 0; i <= soLanGanNhat(nguoiHocDangNhap); i++) {
+                        int i;
+                        for (i = 1; i <= soLanGanNhat(nguoiHocDangNhap); i++) {
                             tamThoi += i;
                         }
                         System.out.println("================Thong ke diem theo thang================");
                         for (Map.Entry<String, Integer> entry : diemTheoThang.entrySet()) {
-                            System.out.println("Nam thang duoc thong ke: " + entry.getKey() + " \nDiem: " + (entry.getValue() - tamThoi));
+                            System.out.println("Nam thang duoc thong ke: " + entry.getKey() + " \nDiem trung binh thang: " + ((entry.getValue() - tamThoi) / (double) (i - 1)));
+                        }
+                        int j = 0;
+                        int tmp = 0;
+                        try {
+                            List<Integer> diemList = docFileThongKe(nguoiHocDangNhap);
+
+                            if (diemList.isEmpty()) {
+                                System.out.println("Khong co du lieu diem so.");
+                            } else {
+                                System.out.println("Diem moi lan lam bai cua nguoi dung:");
+                                for (int diem : diemList) {
+                                    tmp++;
+                                    if (tmp % 2 == 0) {
+                                        j++;
+                                        System.out.print("Diem lan " + j + " la: ");
+                                        System.out.println(diem);
+                                    }
+
+                                }
+                            }
+                        } catch (FileNotFoundException e) {
+                            // Xử lý lỗi tệp tin không tồn tại
+                            System.out.println("Tep tin khong ton tai.");
                         }
 
                     }
@@ -803,14 +827,14 @@ public class Main {
         } while (choice != 0);
     }
 
-    public static String full(int n){
+    public static String full(int n) {
         StringBuilder s = new StringBuilder();
-        for(int i=1;i<=n;i++){
-            s.append(i+" ");
+        for (int i = 1; i <= n; i++) {
+            s.append(i + " ");
         }
         return s.toString();
     }
-    
+
     public static boolean isFull(int line) throws FileNotFoundException {
         String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
         try {
@@ -822,12 +846,13 @@ public class Main {
             for (int i = 0; i < 7; i++) {
                 lines[i] = br.readLine();
             }
-            
+
             // Đóng đối tượng đọc file
             br.close();
-            if(lines[line-1].length()==full(line).length())
+            if (lines[line - 1].length() == full(line).length()) {
                 return true;
-        }catch (IOException e) {
+            }
+        } catch (IOException e) {
 
         }
         return false;
@@ -929,6 +954,34 @@ public class Main {
         }
 
         ghiDiem(diem, soLan, nguoiDung);
+    }
+
+    public static List<Integer> docFileThongKe(NguoiDung nguoiDung) throws FileNotFoundException {
+        String ten = nguoiDung.getHoTen();
+        String linkFile = "src/main/java/com/ttb/baitap/file/" + ten;
+        File f = new File(linkFile);
+
+        List<Integer> diemList = new ArrayList<>();
+
+        try ( Scanner sc = new Scanner(f)) {
+            String line = sc.nextLine();
+            while (sc.hasNextLine()) {
+                line = sc.nextLine();
+                // Bỏ qua các dòng không chứa điểm số
+                if (!line.matches("\\d+")) {
+                    continue;
+                }
+
+                // Chuyển đổi dòng thành số nguyên và thêm vào danh sách
+                int diem = Integer.parseInt(line);
+                diemList.add(diem);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Loi khi doc tep tin: " + e.getMessage());
+            throw e; // Chuyển tiếp lỗi để xử lý ở lớp gọi
+        }
+
+        return diemList;
     }
 
 }
