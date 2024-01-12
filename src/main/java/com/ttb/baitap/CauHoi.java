@@ -11,7 +11,6 @@ public abstract class CauHoi {
     private Do_Kho doKho;
     private PhuongAn phuongAnDung;
     private int soThuTu;
-    protected static int dem = 1;
     
     public abstract void hienThi(int n);
 

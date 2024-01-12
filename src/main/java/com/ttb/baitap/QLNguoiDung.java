@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +37,7 @@ public class QLNguoiDung {
         File f = new File("src/main/java/com/ttb/baitap/file/DSNGuoiDung");
         try ( Scanner sc = new Scanner(f)) {
             while (sc.hasNext()) {
-                this.ds.add(new NguoiDung(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(),sc.nextLine()));
+                this.ds.add(new NguoiDung(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine()));
             }
         }
     }
@@ -66,20 +65,13 @@ public class QLNguoiDung {
                 || nguoiDung.getGioiTinh().toLowerCase().contains(s.toLowerCase())
                 || nguoiDung.ngaySinhToString().equals(s)).collect(Collectors.toList());
     }
-    
-//    public NguoiDung traCuuTheoTen(String tenCanTim) {
-//        return ds.stream()
-//                .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().contains(tenCanTim.toLowerCase()))
-//                .findFirst()
-//                .orElse(null);
-//    }
 
     public NguoiDung traCuuTheoTen(String tenCanTim) {
-    return ds.stream()
-            .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().equals(tenCanTim.toLowerCase()))
-            .findFirst()
-            .orElse(null);
-}
+        return ds.stream()
+                .filter(nguoiDung -> nguoiDung.getHoTen().toLowerCase().equals(tenCanTim.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+    }
 
     public Date chuyenDoiNgayThang(String ngayThang) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -128,8 +120,8 @@ public class QLNguoiDung {
         ngaySinhStr = chuyenDateSangChuoi(ngaySinh);
         ngayGiaNhapStr = chuyenDateSangChuoi(ngayGiaNhap);
         //Them diem o day tam thoi cho diem bang 0
-        String diem="0";
-        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr,diem);
+        String diem = "0";
+        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr, diem);
         ds.add(nguoiDung);
         ghiNguoiDungVaoFile(nguoiDung);
         System.out.println("Da them nguoi hoc: " + hoTen);
@@ -152,7 +144,6 @@ public class QLNguoiDung {
             ngaySinh = chuyenDoiNgayThang(ngaySinhStr);
         } while (ngaySinh == null);
 
-
         String ngayGiaNhapStr;
         LocalDate currentDate = LocalDate.now();
 
@@ -161,14 +152,14 @@ public class QLNguoiDung {
         ngayGiaNhapStr = currentDate.format(formatter);
         ngaySinhStr = chuyenDateSangChuoi(ngaySinh);
         //Them diem o day tam thoi cho diem bang 0
-        String diem="0";
-        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr,diem);
+        String diem = "0";
+        NguoiDung nguoiDung = new NguoiDung(hoTen, queQuan, gioiTinh, ngaySinhStr, ngayGiaNhapStr, diem);
         ds.add(nguoiDung);
         ghiNguoiDungVaoFile(nguoiDung);
         System.out.println("Da them nguoi hoc: " + hoTen);
         return nguoiDung;
     }
-    
+
     public void ghiNguoiDungVaoFile(NguoiDung nguoiDung) {
         try ( PrintWriter writer = new PrintWriter(new FileWriter("src/main/java/com/ttb/baitap/file/DSNGuoiDung", true))) {
             writer.println(nguoiDung.getHoTen());
@@ -190,9 +181,12 @@ public class QLNguoiDung {
                 iterator.remove();
                 System.out.println("Da xoa nguoi dung co ten: " + ten);
                 ghiNguoiDungVaoFile();  // Ghi người dùng vào file ngay sau khi xóa.
-                String s = "src/main/java/com/ttb/baitap/file/"+ten;
-                Path path = Paths.get(s);
-                Files.delete(path);
+                String s = "src/main/java/com/ttb/baitap/file/" + ten;
+                File f = new File(s);
+                if (f.exists()) {
+                    Path path = Paths.get(s);
+                    Files.delete(path);
+                }
                 return;
             }
         }
@@ -300,12 +294,12 @@ public class QLNguoiDung {
         }
 
     }
-    
-    public NguoiDung DangNhap(){
+
+    public NguoiDung DangNhap() {
         System.out.println("DANG NHAP");
         System.out.println("Nhap ho ten dang nhap:");
         String hoTen = CauHinh.SC.nextLine();
-        
+
         return traCuuTheoTen(hoTen);
     }
 

@@ -159,6 +159,10 @@ public class Main {
                                     System.out.print("Nhap ten nguoi hoc muon xoa: ");
                                     String ten = CauHinh.SC.nextLine();
                                     qlnd.xoaNguoiDung(ten);
+                                    if(ten.equalsIgnoreCase(nguoiHocDangNhap.getHoTen())){
+                                        System.out.println("Ban da xoa ban ra khoi chuong trinh");
+                                        return;
+                                    }
 //                                qlnd.ghiNguoiDungVaoFile();
                                 }
                                 case 0 ->
@@ -472,6 +476,8 @@ public class Main {
                                     int rand = randSo(CauHinh.SL_MUL);
                                     int diem = 0;
                                     int j = 1;
+                                    String s[] = new String[n];
+                                    int k = 0;
                                     List<CauHoi> list = new ArrayList<>();
                                     for (int i = 0; i < n; i++) {
                                         while (kiemTra(1, rand)) {
@@ -497,18 +503,22 @@ public class Main {
                                         String chon = CauHinh.SC.nextLine();
                                         if (chon.equalsIgnoreCase(pad)) {
                                             diem += temp;
+                                            s[k++] = "Dung";
+                                        } else {
+                                            s[k++] = "Sai";
                                         }
                                     }
                                     ghiDiem(diem, soLan, nguoiHocDangNhap);
                                     if (!list.isEmpty()) {
                                         System.out.println("===========DAP AN===========");
+                                        k = 0;
+                                        for (CauHoi c : list) {
+                                            c.hienThi(0);
+                                            System.out.print("Phuong an dung: ");
+                                            System.out.print(c.getPhuongAnDung());
+                                            System.out.printf("\t(%s)\n", s[k++]);
+                                        }
                                     }
-                                    list.forEach(c -> {
-                                        c.hienThi(0);
-                                        System.out.print("Phuong an dung: ");
-                                        System.out.println(c.getPhuongAnDung());
-                                        System.out.println("");
-                                    });
                                     break;
                                 }
                                 case 2 -> {
@@ -592,39 +602,45 @@ public class Main {
                     }
 
                     case 4 -> {
+                        boolean hasData = coDuLieuTrongFile(nguoiHocDangNhap);
 
-                        Map<String, Integer> diemTheoThang = thongKeDiemTheoThang(nguoiHocDangNhap);
-                        int tamThoi = 0;
-                        int i;
-                        for (i = 1; i <= soLanGanNhat(nguoiHocDangNhap); i++) {
-                            tamThoi += i;
-                        }
-                        System.out.println("================Thong ke diem theo thang================");
-                        for (Map.Entry<String, Integer> entry : diemTheoThang.entrySet()) {
-                            System.out.println("Nam thang duoc thong ke: " + entry.getKey() + " \nDiem trung binh thang: " + ((entry.getValue() - tamThoi) / (double) (i - 1)));
-                        }
-                        int j = 0;
-                        int tmp = 0;
-                        try {
-                            List<Integer> diemList = docFileThongKe(nguoiHocDangNhap);
-
-                            if (diemList.isEmpty()) {
-                                System.out.println("Khong co du lieu diem so.");
-                            } else {
-                                System.out.println("Diem moi lan lam bai cua nguoi dung:");
-                                for (int diem : diemList) {
-                                    tmp++;
-                                    if (tmp % 2 == 0) {
-                                        j++;
-                                        System.out.print("Diem lan " + j + " la: ");
-                                        System.out.println(diem);
-                                    }
-
-                                }
+                        if (hasData) {
+                            Map<String, Integer> diemTheoThang = thongKeDiemTheoThang(nguoiHocDangNhap);
+                            int tamThoi = 0;
+                            int i;
+                            for (i = 1; i <= soLanGanNhat(nguoiHocDangNhap); i++) {
+                                tamThoi += i;
                             }
-                        } catch (FileNotFoundException e) {
-                            // Xử lý lỗi tệp tin không tồn tại
-                            System.out.println("Tep tin khong ton tai.");
+                            System.out.println("================Thong ke diem theo thang================");
+                            for (Map.Entry<String, Integer> entry : diemTheoThang.entrySet()) {
+                                System.out.println("Nam thang duoc thong ke: " + entry.getKey() + " \nDiem trung binh thang: " + ((entry.getValue() - tamThoi) / (double) (i - 1)));
+                            }
+                            int j = 0;
+                            int tmp = 0;
+                            try {
+                                List<Integer> diemList = docFileThongKe(nguoiHocDangNhap);
+
+                                if (diemList.isEmpty()) {
+                                    System.out.println("Khong co du lieu diem so.");
+                                } else {
+                                    System.out.println("Diem moi lan lam bai cua nguoi dung:");
+                                    for (int diem : diemList) {
+                                        tmp++;
+                                        if (tmp % 2 == 0) {
+                                            j++;
+                                            System.out.print("Diem lan " + j + " la: ");
+                                            System.out.println(diem);
+                                        }
+
+                                    }
+                                }
+                            } catch (FileNotFoundException e) {
+                                // Xử lý lỗi tệp tin không tồn tại
+                                System.out.println("Tep tin khong ton tai.");
+                            }
+
+                        } else {
+                            System.out.println("Khong co du lieu de thong ke.");
                         }
 
                     }
@@ -648,7 +664,7 @@ public class Main {
 
     public static boolean kiemTra(int lineNumber, int targetNumber) throws IOException {
         String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
-
+        
         try {
             // Đọc nội dung từ file
             BufferedReader br = new BufferedReader(new FileReader(tenFile));
@@ -657,8 +673,10 @@ public class Main {
             // Đọc dòng từ file và lưu vào mảng
             for (int i = 0; i < 7; i++) {
                 lines[i] = br.readLine();
+                if(lines[i]==null)
+                    lines[i]="";
             }
-
+            
             // Đóng đối tượng đọc file
             br.close();
             if (lines[lineNumber - 1].trim().isBlank() || !lines[lineNumber - 1].contains(Integer.toString(targetNumber))) // Ghi giá trị mới vào dòng thứ 6
@@ -746,6 +764,8 @@ public class Main {
             String now = LocalDate.now().toString();
             if (isFirstLineEmpty(nguoiDung)) {
                 writer.println(now);
+                writer.println(Integer.toString(soLan));
+                writer.println(Integer.toString(diem));
             } else {
                 if (ngay(nguoiDung).equals(now)) {
                     writer.println(Integer.toString(soLan));
@@ -827,37 +847,6 @@ public class Main {
         } while (choice != 0);
     }
 
-    public static String full(int n) {
-        StringBuilder s = new StringBuilder();
-        for (int i = 1; i <= n; i++) {
-            s.append(i + " ");
-        }
-        return s.toString();
-    }
-
-    public static boolean isFull(int line) throws FileNotFoundException {
-        String tenFile = "src/main/java/com/ttb/baitap/file/CauDaLam"; // Thay đổi đường dẫn và tên file tùy ý
-        try {
-            // Đọc nội dung từ file
-            BufferedReader br = new BufferedReader(new FileReader(tenFile));
-            String[] lines = new String[7]; // Mảng lưu trữ 6 dòng
-
-            // Đọc dòng từ file và lưu vào mảng
-            for (int i = 0; i < 7; i++) {
-                lines[i] = br.readLine();
-            }
-
-            // Đóng đối tượng đọc file
-            br.close();
-            if (lines[line - 1].length() == full(line).length()) {
-                return true;
-            }
-        } catch (IOException e) {
-
-        }
-        return false;
-    }
-
     public static void taoFile(NguoiDung nguoiDung) {
         // Đường dẫn tới thư mục lưu trữ tệp tin
         String folderPath = "src/main/java/com/ttb/baitap/file/";
@@ -915,7 +904,7 @@ public class Main {
         }
         List<CauHoi> kq = new ArrayList<>();
         kq = qlch.timCauHoi(doKho);
-        int j = 1;
+        int j = 0;
         while (kiemTra(line, rand)) {
             rand = randSo(CauHinh.SL_INC);
             j++;
@@ -927,8 +916,9 @@ public class Main {
         }
         List<CauHoi> list = new ArrayList<>();
         int diem = 0;
-        int temp = 0;
+        int temp = 0, k = 0;
         String pad = null;
+        String s[] = new String[1000];
         for (CauHoi c : kq) {
             if (c.getSoThuTu() == rand) {
                 c.hienThi(1);
@@ -938,19 +928,23 @@ public class Main {
                 pad = c.getPhuongAnDung().toString();
                 temp = c.getDoKho().getDiemSo();
                 list.add(c);
-                if (pad.equalsIgnoreCase(chon)) {
+                if (chon.equalsIgnoreCase(pad)) {
                     diem += temp;
+                    s[k++] = "Dung";
+                } else {
+                    s[k++] = "Sai";
                 }
             }
         }
         if (!list.isEmpty()) {
             System.out.println("============DAP AN============");
-            list.forEach(c -> {
+            k = 0;
+            for (CauHoi c : list) {
                 c.hienThi(0);
                 System.out.print("Phuong an dung: ");
-                System.out.println(c.getPhuongAnDung());
-                System.out.println("");
-            });
+                System.out.print(c.getPhuongAnDung());
+                System.out.printf("\t(%s)\n", s[k++]);
+            }
         }
 
         ghiDiem(diem, soLan, nguoiDung);
@@ -982,6 +976,17 @@ public class Main {
         }
 
         return diemList;
+    }
+
+    public static boolean coDuLieuTrongFile(NguoiDung nguoiDung) {
+        String ten = nguoiDung.getHoTen();
+        String linkFile = "src/main/java/com/ttb/baitap/file/" + ten;
+        File f = new File(linkFile);
+        try ( Scanner scanner = new Scanner(f)) {
+            return scanner.hasNextLine();
+        } catch (FileNotFoundException e) {
+            return false; // Trả về false nếu có lỗi khi mở tệp tin
+        }
     }
 
 }

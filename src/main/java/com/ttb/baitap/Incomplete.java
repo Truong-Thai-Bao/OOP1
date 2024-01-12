@@ -6,7 +6,7 @@ public class Incomplete extends CauHoi {
 
     protected static boolean flag = true;
     protected static int temp = 1;
-
+    protected static int dem=1;
     public Incomplete() {
         super(null, null, null, null,0);
     }
@@ -28,7 +28,7 @@ public class Incomplete extends CauHoi {
             temp=getSoThuTu();
         }
         if(n!=0)
-            System.out.printf("%d. ",super.dem);
+            System.out.printf("%d. ",dem);
         for (PhuongAn p : getPhuongAn()) {
                 System.out.printf("%s\t", p);
         }
